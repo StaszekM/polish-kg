@@ -1,0 +1,6 @@
+dvc~=3.42.0
+dvc_data~=3.8.0
+dvc_objects~=3.0.6
+dvc_render~=1.0.1
+dvc_task~=0.4.0
+scmrepo~=2.0.4
