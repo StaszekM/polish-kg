@@ -124,6 +124,6 @@ def main():
 if __name__ == "__main__":
     load_dotenv()
     wandb.login(key=os.getenv("WANDB_API_KEY"))
-    wandb.init(project="polish-kg")
+    wandb.init(project="polish-kg", entity=os.getenv("WANDB_ENTITY"))
     main()
     wandb.finish()

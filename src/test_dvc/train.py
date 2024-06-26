@@ -41,7 +41,7 @@ def main():
 
     if len(sys.argv) != 3:
         sys.stderr.write("Arguments error. Usage:\n")
-        sys.stderr.write("\tpython train.py features model\n")
+        sys.stderr.write("\tpython test_dvc/train.py features model\n")
         sys.exit(1)
 
     input = sys.argv[1]
