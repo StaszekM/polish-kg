@@ -1,28 +1,28 @@
 stages:
   prepare:
-    cmd: python src/test_dvc/prepare.py data/data.xml
+    cmd: python src/test_dvc/prepare.py data/test_dvc/data.xml
     deps:
-    - data/data.xml
+    - data/test_dvc/data.xml
     - src/test_dvc/prepare.py
     params:
     - prepare.seed
     - prepare.split
     outs:
-    - data/prepared
+    - data/test_dvc/prepared
   featurize:
-    cmd: python src/test_dvc/featurization.py data/prepared data/features
+    cmd: python src/test_dvc/featurization.py data/test_dvc/prepared data/test_dvc/features
     deps:
-    - data/prepared
+    - data/test_dvc/prepared
     - src/test_dvc/featurization.py
     params:
     - featurize.max_features
     - featurize.ngrams
     outs:
-    - data/features
+    - data/test_dvc/features
   train:
-    cmd: python src/test_dvc/train.py data/features model.pkl
+    cmd: python src/test_dvc/train.py data/test_dvc/features model.pkl
     deps:
-    - data/features
+    - data/test_dvc/features
     - src/test_dvc/train.py
     params:
     - train.min_split
@@ -31,9 +31,9 @@ stages:
     outs:
     - model.pkl
   evaluate:
-    cmd: python src/test_dvc/evaluate.py model.pkl data/features/
+    cmd: python src/test_dvc/evaluate.py model.pkl data/test_dvc/features/
     deps:
-    - data/features
+    - data/test_dvc/features
     - model.pkl
     - src/test_dvc/evaluate.py
     outs:

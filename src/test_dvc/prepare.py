@@ -50,10 +50,10 @@ def main():
     random.seed(params["seed"])
 
     input = sys.argv[1]
-    output_train = os.path.join("data", "prepared", "train.tsv")
-    output_test = os.path.join("data", "prepared", "test.tsv")
+    output_train = os.path.join("data", "test_dvc", "prepared", "train.tsv")
+    output_test = os.path.join("data", "test_dvc", "prepared", "test.tsv")
 
-    os.makedirs(os.path.join("data", "prepared"), exist_ok=True)
+    os.makedirs(os.path.join("data", "test_dvc", "prepared"), exist_ok=True)
 
     input_lines = []
     with open(input) as fd_in:
