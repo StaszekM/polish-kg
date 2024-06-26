@@ -1,6 +1,4 @@
 env
 .gdrive-remote-credentials
-/model.pkl
-/eval
 .env
 wandb
