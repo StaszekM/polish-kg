@@ -9,6 +9,9 @@ from sklearn import metrics
 from sklearn import tree
 from dvclive import Live
 from matplotlib import pyplot as plt
+import wandb
+import wandb.plot as wpl
+from dotenv import load_dotenv
 
 
 def evaluate(model, matrix, split, live, save_path):
@@ -36,9 +39,12 @@ def evaluate(model, matrix, split, live, save_path):
     live.summary["avg_prec"][split] = avg_prec
     live.summary["roc_auc"][split] = roc_auc
 
+    wandb.log({f"avg_prec_{split}": avg_prec, f"roc_auc_{split}": roc_auc})
+
     # ... and plots...
     # ... like an roc plot...
     live.log_sklearn_plot("roc", labels, predictions, name=f"roc/{split}")
+    wandb.log({f"roc_{split}": wpl.roc_curve(labels, predictions_by_class)})
     # ... and precision recall plot...
     # ... which passes `drop_intermediate=True` to the sklearn method...
     live.log_sklearn_plot(
@@ -54,6 +60,13 @@ def evaluate(model, matrix, split, live, save_path):
         labels.squeeze(),
         predictions_by_class.argmax(-1),
         name=f"cm/{split}",
+    )
+    wandb.log(
+        {
+            f"confusion_matrix_{split}": wpl.confusion_matrix(
+                labels, predictions_by_class.argmax(-1)
+            )
+        }
     )
 
 
@@ -109,4 +122,8 @@ def main():
 
 
 if __name__ == "__main__":
+    load_dotenv()
+    wandb.login(key=os.getenv("WANDB_API_KEY"))
+    wandb.init(project="polish-kg")
     main()
+    wandb.finish()
