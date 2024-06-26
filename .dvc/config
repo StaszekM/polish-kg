@@ -1,0 +1,5 @@
+[core]
+    remote = gdrive-remote
+['remote "gdrive-remote"']
+    url = gdrive://1W3Ddw6_KbVNIEmjhPKtfaFRiKvzP2FoJ
+    gdrive_user_credentials_file = ../.gdrive-remote-credentials

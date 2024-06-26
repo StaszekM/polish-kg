@@ -4,3 +4,4 @@ dvc_objects~=3.0.6
 dvc_render~=1.0.1
 dvc_task~=0.4.0
 scmrepo~=2.0.4
+dvc-gdrive~=3.0.1
