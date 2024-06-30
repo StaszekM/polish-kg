@@ -1,0 +1,6 @@
+outs:
+- md5: 129ecbe389ec323bb034d6d6c5592258.dir
+  size: 358593615
+  nfiles: 35
+  hash: md5
+  path: entity_relation_extraction_multilingual
