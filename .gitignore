@@ -2,3 +2,5 @@ env
 .gdrive-remote-credentials
 .env
 wandb
+data/maupqa
+__pycache__

@@ -14,3 +14,6 @@ pyaml
 scikit-learn>=1.3
 scipy
 matplotlib
+datasets==2.20.0
+ipykernel==6.29.4
+ipywidgets==8.1.3
