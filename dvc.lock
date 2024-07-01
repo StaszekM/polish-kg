@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  explore:
+    cmd: papermill notebooks/explore_maupqa.ipynb notebooks/explore_maupqa.out.ipynb
+    deps:
+    - path: notebooks/explore_maupqa.ipynb
+      hash: md5
+      md5: 7ce774952d1771568f4833596f0b524b
+      size: 404167
+    outs:
+    - path: notebooks/explore_maupqa.out
+      hash: md5
+      md5: 644f13d5281698f850f89671f9c534e3.dir
+      size: 301817
+      nfiles: 12
+    - path: notebooks/explore_maupqa.out.ipynb
+      hash: md5
+      md5: 979c9d724ed800ce3a15aa554dbae664
+      size: 415460
