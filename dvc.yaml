@@ -1,0 +1,10 @@
+stages:
+  explore:
+    cmd: papermill notebooks/explore_maupqa.ipynb notebooks/explore_maupqa.out.ipynb
+    deps:
+    - notebooks/explore_maupqa.ipynb
+    outs:
+    - notebooks/explore_maupqa.out
+    - notebooks/explore_maupqa.out.ipynb    
+
+
