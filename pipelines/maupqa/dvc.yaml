@@ -1,5 +1,6 @@
 stages:
   explore:
+    wdir: '../../'
     cmd: papermill notebooks/explore_maupqa/notebook.ipynb notebooks/explore_maupqa/output.ipynb
     deps:
     - notebooks/explore_maupqa/notebook.ipynb
