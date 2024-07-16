@@ -4,3 +4,4 @@ env
 wandb
 data/maupqa
 __pycache__
+models/**

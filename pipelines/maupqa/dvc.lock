@@ -15,5 +15,5 @@ stages:
       nfiles: 12
     - path: notebooks/explore_maupqa/output.ipynb
       hash: md5
-      md5: e2b315830cc265559b00bc762a484d30
-      size: 415551
+      md5: ece76bf4054e2f3ca708b5aa6f772642
+      size: 415549
