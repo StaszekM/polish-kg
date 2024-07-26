@@ -1,0 +1,5 @@
+outs:
+- md5: 2f3feedb09ff3d6ed1f97df88f748b1f
+  size: 1569
+  hash: md5
+  path: schema.csv

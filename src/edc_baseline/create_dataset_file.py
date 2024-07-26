@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 from .remove_entity_tags import remove_entity_tags
+from argparse import ArgumentParser
 
 
 def create_dataset_file(tsv_path: str, output_path: str, verbose: bool = False):
@@ -31,4 +32,17 @@ def create_dataset_file(tsv_path: str, output_path: str, verbose: bool = False):
     if verbose:
         print("Writing to", output_path)
 
-    result_series.to_csv(output_path, index=False, header=False)
+    result_series.to_csv(output_path, index=False, header=False, sep="\n")
+
+
+if __name__ == "__main__":
+    from src.make_paths_relative_to_root import *
+
+    parser = ArgumentParser()
+    parser.add_argument("--tsv_path", type=str, required=True)
+    parser.add_argument("--output_path", type=str, required=True)
+    parser.add_argument("--verbose", action="store_true")
+
+    args = parser.parse_args()
+
+    create_dataset_file(args.tsv_path, args.output_path, args.verbose)

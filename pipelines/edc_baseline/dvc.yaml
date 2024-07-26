@@ -1,0 +1,27 @@
+stages:
+  union_tsv_files:
+    cmd: python -m src.utils.union_tsv_files --paths data/entity_relation_extraction_multilingual/pl_corpora_test.tsv
+      data/entity_relation_extraction_multilingual/pl_corpora_train.tsv --output_tsv
+      data/edc_baseline/corpora.tsv
+    wdir: ../..
+    deps:
+    - data/entity_relation_extraction_multilingual/pl_corpora_test.tsv
+    - data/entity_relation_extraction_multilingual/pl_corpora_train.tsv
+    outs:
+    - data/edc_baseline/corpora.tsv
+  create_dataset_file:
+    cmd: python -m src.edc_baseline.create_dataset_file --tsv_path data/edc_baseline/corpora.tsv
+      --output_path data/edc_baseline/dataset.txt --verbose
+    wdir: ../..
+    deps:
+    - data/edc_baseline/corpora.tsv
+    outs:
+    - data/edc_baseline/dataset.txt
+  create_reference_file:
+    cmd: python -m src.edc_baseline.create_reference_file --tsv_path data/edc_baseline/corpora.tsv
+      --output_path data/edc_baseline/reference.txt --verbose
+    wdir: ../..
+    deps:
+    - data/edc_baseline/corpora.tsv
+    outs:
+    - data/edc_baseline/reference.txt

@@ -1,0 +1,46 @@
+schema: '2.0'
+stages:
+  union_tsv_files:
+    cmd: python -m src.utils.union_tsv_files --paths data/entity_relation_extraction_multilingual/pl_corpora_test.tsv
+      data/entity_relation_extraction_multilingual/pl_corpora_train.tsv --output_tsv
+      data/edc_baseline/corpora.tsv
+    deps:
+    - path: data/entity_relation_extraction_multilingual/pl_corpora_test.tsv
+      hash: md5
+      md5: 33ebd7806442a008de570530bf022ce3
+      size: 64062
+    - path: data/entity_relation_extraction_multilingual/pl_corpora_train.tsv
+      hash: md5
+      md5: 9b2c3a6b0da42596a72c87f7c0c0b001
+      size: 3151290
+    outs:
+    - path: data/edc_baseline/corpora.tsv
+      hash: md5
+      md5: c7b8b435f9abd99d96a23a06337dd0f3
+      size: 3198138
+  create_dataset_file:
+    cmd: python -m src.edc_baseline.create_dataset_file --tsv_path data/edc_baseline/corpora.tsv
+      --output_path data/edc_baseline/dataset.txt --verbose
+    deps:
+    - path: data/edc_baseline/corpora.tsv
+      hash: md5
+      md5: c7b8b435f9abd99d96a23a06337dd0f3
+      size: 3198138
+    outs:
+    - path: data/edc_baseline/dataset.txt
+      hash: md5
+      md5: c20201de172e4b41b4dc90196d2d2249
+      size: 2146694
+  create_reference_file:
+    cmd: python -m src.edc_baseline.create_reference_file --tsv_path data/edc_baseline/corpora.tsv
+      --output_path data/edc_baseline/reference.txt --verbose
+    deps:
+    - path: data/edc_baseline/corpora.tsv
+      hash: md5
+      md5: c7b8b435f9abd99d96a23a06337dd0f3
+      size: 3198138
+    outs:
+    - path: data/edc_baseline/reference.txt
+      hash: md5
+      md5: f677f51721e955f3197e4bb0c7d1f91d
+      size: 804533
