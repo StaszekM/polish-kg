@@ -31,7 +31,7 @@ def create_reference_file(tsv_path: str, output_path: str, verbose: bool = False
 
     translations = pd.read_csv(translations_location)
 
-    df = df.merge(translations, how="inner", left_on="label", right_on="relation")
+    df = df.merge(translations, how="left", left_on="label", right_on="relation")
     if pd.isna(df["translation"]).any():
         missing_translations = df[pd.isna(df["translation"])]["label"].unique()
         raise ValueError("Missing translations for some labels: ", missing_translations)
@@ -49,7 +49,9 @@ def create_reference_file(tsv_path: str, output_path: str, verbose: bool = False
     if verbose:
         print("Writing to", output_path)
 
-    result_series.to_csv(output_path, index=False, header=False, sep="\n")
+    with open(output_path, "w") as f:
+        for line in result_series:
+            f.write(str(line) + "\n")
 
 
 if __name__ == "__main__":

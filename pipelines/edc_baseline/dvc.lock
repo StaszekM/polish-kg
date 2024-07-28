@@ -13,34 +13,94 @@ stages:
       hash: md5
       md5: 9b2c3a6b0da42596a72c87f7c0c0b001
       size: 3151290
+    - path: src/utils/union_tsv_files.py
+      hash: md5
+      md5: 4a8118fd9f8f8627acccabd83d28eff8
+      size: 779
     outs:
     - path: data/edc_baseline/corpora.tsv
       hash: md5
       md5: c7b8b435f9abd99d96a23a06337dd0f3
       size: 3198138
   create_dataset_file:
-    cmd: python -m src.edc_baseline.create_dataset_file --tsv_path data/edc_baseline/corpora.tsv
+    cmd: python -m src.edc_baseline.create_dataset_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
       --output_path data/edc_baseline/dataset.txt --verbose
     deps:
-    - path: data/edc_baseline/corpora.tsv
+    - path: data/edc_baseline/corpora_cleaned.tsv
       hash: md5
-      md5: c7b8b435f9abd99d96a23a06337dd0f3
-      size: 3198138
+      md5: 926d71bf43e26261ae0bf99d59ef32b7
+      size: 3197757
+    - path: src/edc_baseline/create_dataset_file.py
+      hash: md5
+      md5: d3fae688667523ba66c7f5387360d00f
+      size: 1511
     outs:
     - path: data/edc_baseline/dataset.txt
       hash: md5
-      md5: c20201de172e4b41b4dc90196d2d2249
-      size: 2146694
+      md5: 9036c0b37a9fbce80d668b7d7fb9d76e
+      size: 2146204
   create_reference_file:
-    cmd: python -m src.edc_baseline.create_reference_file --tsv_path data/edc_baseline/corpora.tsv
+    cmd: python -m src.edc_baseline.create_reference_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
       --output_path data/edc_baseline/reference.txt --verbose
+    deps:
+    - path: data/edc_baseline/corpora_cleaned.tsv
+      hash: md5
+      md5: 926d71bf43e26261ae0bf99d59ef32b7
+      size: 3197757
+    - path: src/edc_baseline/create_reference_file.py
+      hash: md5
+      md5: aa7ac2d7c17dde1ddd1affedf668802f
+      size: 2292
+    outs:
+    - path: data/edc_baseline/reference.txt
+      hash: md5
+      md5: 9a05285d8aff08248e8565d82842ae06
+      size: 804268
+  precheck_corpora:
+    cmd: python -m src.edc_baseline.precheck_corpora --tsv_path data/edc_baseline/corpora.tsv
+      --output_path data/edc_baseline/corpora_cleaned.tsv --verbose
     deps:
     - path: data/edc_baseline/corpora.tsv
       hash: md5
       md5: c7b8b435f9abd99d96a23a06337dd0f3
       size: 3198138
+    - path: src/edc_baseline/precheck_corpora.py
+      hash: md5
+      md5: 5f1b42360c0aff4823a9ff4501652aea
+      size: 1008
     outs:
+    - path: data/edc_baseline/corpora_cleaned.tsv
+      hash: md5
+      md5: 926d71bf43e26261ae0bf99d59ef32b7
+      size: 3197757
+  create_fewshot_examples:
+    cmd: python -m src.edc_baseline.create_fewshot_examples --dataset_path data/edc_baseline/dataset.txt
+      --schema_path data/edc_baseline/schema.csv --reference_path data/edc_baseline/reference.txt
+      --oie_fewshot_output_path data/edc_baseline/oie_few_shot_examples.txt --sd_fewshot_output_path
+      data/edc_baseline/sd_few_shot_examples.txt --random_state 11 --sample_size 6
+    deps:
+    - path: data/edc_baseline/dataset.txt
+      hash: md5
+      md5: 9036c0b37a9fbce80d668b7d7fb9d76e
+      size: 2146204
     - path: data/edc_baseline/reference.txt
       hash: md5
-      md5: f677f51721e955f3197e4bb0c7d1f91d
-      size: 804533
+      md5: 9a05285d8aff08248e8565d82842ae06
+      size: 804268
+    - path: data/edc_baseline/schema.csv
+      hash: md5
+      md5: 2f3feedb09ff3d6ed1f97df88f748b1f
+      size: 1569
+    params:
+      pipelines/edc_baseline/params.yaml:
+        random_state: 11
+        sample_size: 6
+    outs:
+    - path: data/edc_baseline/oie_few_shot_examples.txt
+      hash: md5
+      md5: 4ac8009000f5ffc84d1e7ee7eecb8155
+      size: 1076
+    - path: data/edc_baseline/sd_few_shot_examples.txt
+      hash: md5
+      md5: 6eff690b741d85710f556a57d32cc61e
+      size: 1750

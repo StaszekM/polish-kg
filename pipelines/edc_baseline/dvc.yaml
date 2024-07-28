@@ -7,21 +7,53 @@ stages:
     deps:
     - data/entity_relation_extraction_multilingual/pl_corpora_test.tsv
     - data/entity_relation_extraction_multilingual/pl_corpora_train.tsv
+    - src/utils/union_tsv_files.py
     outs:
     - data/edc_baseline/corpora.tsv
+  precheck_corpora:
+    cmd: python -m src.edc_baseline.precheck_corpora --tsv_path data/edc_baseline/corpora.tsv
+      --output_path data/edc_baseline/corpora_cleaned.tsv --verbose
+    wdir: ../..
+    deps:
+    - data/edc_baseline/corpora.tsv
+    - src/edc_baseline/precheck_corpora.py
+    outs:
+    - data/edc_baseline/corpora_cleaned.tsv
   create_dataset_file:
-    cmd: python -m src.edc_baseline.create_dataset_file --tsv_path data/edc_baseline/corpora.tsv
+    cmd: python -m src.edc_baseline.create_dataset_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
       --output_path data/edc_baseline/dataset.txt --verbose
     wdir: ../..
     deps:
-    - data/edc_baseline/corpora.tsv
+    - data/edc_baseline/corpora_cleaned.tsv
+    - src/edc_baseline/create_dataset_file.py
     outs:
     - data/edc_baseline/dataset.txt
   create_reference_file:
-    cmd: python -m src.edc_baseline.create_reference_file --tsv_path data/edc_baseline/corpora.tsv
+    cmd: python -m src.edc_baseline.create_reference_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
       --output_path data/edc_baseline/reference.txt --verbose
     wdir: ../..
     deps:
-    - data/edc_baseline/corpora.tsv
+    - data/edc_baseline/corpora_cleaned.tsv
+    - src/edc_baseline/create_reference_file.py
     outs:
     - data/edc_baseline/reference.txt
+  create_fewshot_examples:
+    params:
+      - pipelines/edc_baseline/params.yaml:
+        - random_state
+        - sample_size
+    cmd: python -m src.edc_baseline.create_fewshot_examples 
+      --dataset_path data/edc_baseline/dataset.txt
+      --schema_path data/edc_baseline/schema.csv --reference_path data/edc_baseline/reference.txt 
+      --oie_fewshot_output_path data/edc_baseline/oie_few_shot_examples.txt
+      --sd_fewshot_output_path data/edc_baseline/sd_few_shot_examples.txt
+      --random_state ${random_state}
+      --sample_size ${sample_size}
+    wdir: ../..
+    deps:
+    - data/edc_baseline/dataset.txt
+    - data/edc_baseline/schema.csv
+    - data/edc_baseline/reference.txt
+    outs:
+    - data/edc_baseline/oie_few_shot_examples.txt
+    - data/edc_baseline/sd_few_shot_examples.txt

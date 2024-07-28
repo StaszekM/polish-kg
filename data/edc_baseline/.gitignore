@@ -2,3 +2,6 @@
 /dataset.txt
 /reference.txt
 /schema.csv
+/corpora_cleaned.tsv
+/oie_few_shot_examples.txt
+/sd_few_shot_examples.txt

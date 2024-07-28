@@ -32,7 +32,9 @@ def create_dataset_file(tsv_path: str, output_path: str, verbose: bool = False):
     if verbose:
         print("Writing to", output_path)
 
-    result_series.to_csv(output_path, index=False, header=False, sep="\n")
+    with open(output_path, "w") as f:
+        for line in result_series:
+            f.write(line + "\n")
 
 
 if __name__ == "__main__":
