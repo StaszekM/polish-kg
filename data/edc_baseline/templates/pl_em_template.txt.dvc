@@ -1,0 +1,5 @@
+outs:
+- md5: 9afe1b125f87aa163366e464ffabbfcc
+  size: 295
+  hash: md5
+  path: pl_em_template.txt

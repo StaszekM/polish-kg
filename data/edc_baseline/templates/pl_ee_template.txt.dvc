@@ -1,0 +1,5 @@
+outs:
+- md5: d8163c02d27221b6c6f7e7d8701a3038
+  size: 293
+  hash: md5
+  path: pl_ee_template.txt

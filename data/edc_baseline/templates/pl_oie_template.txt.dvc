@@ -1,0 +1,5 @@
+outs:
+- md5: cc77f5c203fb07ba1c3cdc93403c06db
+  size: 389
+  hash: md5
+  path: pl_oie_template.txt

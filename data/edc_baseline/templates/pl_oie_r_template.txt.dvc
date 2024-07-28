@@ -1,0 +1,5 @@
+outs:
+- md5: 48f1a34ffe1c1de04c6a44371d558a87
+  size: 666
+  hash: md5
+  path: pl_oie_r_template.txt
