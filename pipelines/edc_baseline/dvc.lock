@@ -24,7 +24,8 @@ stages:
       size: 3198138
   create_dataset_file:
     cmd: python -m src.edc_baseline.create_dataset_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
-      --output_path data/edc_baseline/dataset.txt --verbose
+      --output_path data/edc_baseline/dataset.txt --verbose --reference_output_path
+      data/edc_baseline/reference.txt --subsample_size 0.001 --subsample_seed 11
     deps:
     - path: data/edc_baseline/corpora_cleaned.tsv
       hash: md5
@@ -32,13 +33,25 @@ stages:
       size: 3197757
     - path: src/edc_baseline/create_dataset_file.py
       hash: md5
-      md5: d3fae688667523ba66c7f5387360d00f
-      size: 1511
+      md5: 9151df4aa1ddec88d4ce5a37bef9cd2e
+      size: 2581
+    - path: src/edc_baseline/create_reference_file.py
+      hash: md5
+      md5: b86836aa557bfd91b3203c3b31d94e98
+      size: 2609
+    params:
+      pipelines/edc_baseline/params.yaml:
+        dataset_subsample_seed: 11
+        dataset_subsample_size: 0.001
     outs:
     - path: data/edc_baseline/dataset.txt
       hash: md5
-      md5: 9036c0b37a9fbce80d668b7d7fb9d76e
-      size: 2146204
+      md5: 43a4dbfd6af4e74694fec7321cce1ed3
+      size: 1967
+    - path: data/edc_baseline/reference.txt
+      hash: md5
+      md5: e5939889dc0216d46668f4b01b778395
+      size: 785
   create_reference_file:
     cmd: python -m src.edc_baseline.create_reference_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
       --output_path data/edc_baseline/reference.txt --verbose
@@ -81,12 +94,12 @@ stages:
     deps:
     - path: data/edc_baseline/dataset.txt
       hash: md5
-      md5: 9036c0b37a9fbce80d668b7d7fb9d76e
-      size: 2146204
+      md5: 43a4dbfd6af4e74694fec7321cce1ed3
+      size: 1967
     - path: data/edc_baseline/reference.txt
       hash: md5
-      md5: 9a05285d8aff08248e8565d82842ae06
-      size: 804268
+      md5: e5939889dc0216d46668f4b01b778395
+      size: 785
     - path: data/edc_baseline/schema.csv
       hash: md5
       md5: 2f3feedb09ff3d6ed1f97df88f748b1f
@@ -98,9 +111,9 @@ stages:
     outs:
     - path: data/edc_baseline/oie_few_shot_examples.txt
       hash: md5
-      md5: 4ac8009000f5ffc84d1e7ee7eecb8155
-      size: 1076
+      md5: 59d49cf0a5554c7b88ebb32fbaa273ea
+      size: 977
     - path: data/edc_baseline/sd_few_shot_examples.txt
       hash: md5
-      md5: 6eff690b741d85710f556a57d32cc61e
-      size: 1750
+      md5: 1f5a71573ddf31aac669b9e5b61eda3f
+      size: 1665

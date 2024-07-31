@@ -20,22 +20,20 @@ stages:
     outs:
     - data/edc_baseline/corpora_cleaned.tsv
   create_dataset_file:
+    params:
+      - pipelines/edc_baseline/params.yaml:
+        - dataset_subsample_size
+        - dataset_subsample_seed
     cmd: python -m src.edc_baseline.create_dataset_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
-      --output_path data/edc_baseline/dataset.txt --verbose
+      --output_path data/edc_baseline/dataset.txt --verbose --reference_output_path data/edc_baseline/reference.txt
+      --subsample_size ${dataset_subsample_size} --subsample_seed ${dataset_subsample_seed}
     wdir: ../..
     deps:
     - data/edc_baseline/corpora_cleaned.tsv
     - src/edc_baseline/create_dataset_file.py
-    outs:
-    - data/edc_baseline/dataset.txt
-  create_reference_file:
-    cmd: python -m src.edc_baseline.create_reference_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
-      --output_path data/edc_baseline/reference.txt --verbose
-    wdir: ../..
-    deps:
-    - data/edc_baseline/corpora_cleaned.tsv
     - src/edc_baseline/create_reference_file.py
     outs:
+    - data/edc_baseline/dataset.txt
     - data/edc_baseline/reference.txt
   create_fewshot_examples:
     params:
