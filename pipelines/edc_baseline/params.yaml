@@ -1,4 +1,6 @@
 random_state: 11
 sample_size: 6
-dataset_subsample_size: 0.001
+dataset_subsample_size: 0.0005
 dataset_subsample_seed: 11
+
+evaluation_max_length_diff: 2

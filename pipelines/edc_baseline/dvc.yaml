@@ -55,3 +55,27 @@ stages:
     outs:
     - data/edc_baseline/oie_few_shot_examples.txt
     - data/edc_baseline/sd_few_shot_examples.txt
+  test:
+    # "set -a && source .env && set +a" is responsible for loading the environment variables from the .env file
+    cmd: 'set -a && source .env && set +a && cd $EDC_FORK_REPO_LOCATION && ./run.sh speakleash/Bielik-7B-Instruct-v0.1 $PYTHONPATH/data/edc_baseline $PYTHONPATH/data/edc_baseline/output/polish_kg_target_alignment'
+    wdir: ../..
+    deps:
+    - data/edc_baseline/oie_few_shot_examples.txt
+    - data/edc_baseline/sd_few_shot_examples.txt
+    - data/edc_baseline/templates
+    - data/edc_baseline/schema.csv
+    - data/edc_baseline/dataset.txt
+    - data/edc_baseline/reference.txt
+    outs:
+    - data/edc_baseline/output/polish_kg_target_alignment
+  evaluate:
+    params:
+      - pipelines/edc_baseline/params.yaml:
+        - evaluation_max_length_diff
+    cmd: 'set -a && source .env && set +a && cd $EDC_FORK_REPO_LOCATION && ./evaluate.sh $PYTHONPATH/data/edc_baseline/output/polish_kg_target_alignment/edc_output.txt $PYTHONPATH/data/edc_baseline/reference.txt ${evaluation_max_length_diff} > ./logs.txt && mkdir -p $PYTHONPATH/data/edc_baseline/output/evaluation_result && cp ./result_xmls/polish_kg_target_alignment/* $PYTHONPATH/data/edc_baseline/output/evaluation_result && cp ./logs.txt $PYTHONPATH/data/edc_baseline/output/evaluation_result/logs.txt'
+    wdir: ../..
+    deps:
+    - data/edc_baseline/output/polish_kg_target_alignment
+    - data/edc_baseline/reference.txt
+    outs:
+    - data/edc_baseline/output/evaluation_result
