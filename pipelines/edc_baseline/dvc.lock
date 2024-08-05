@@ -146,6 +146,9 @@ stages:
       md5: 54f7772e28202dddd11e20232d082e17.dir
       size: 3814
       nfiles: 13
+    params:
+      pipelines/edc_baseline/params.yaml:
+        llm: speakleash/Bielik-7B-Instruct-v0.1
     outs:
     - path: data/edc_baseline/output/polish_kg_target_alignment
       hash: md5

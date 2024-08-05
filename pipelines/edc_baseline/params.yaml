@@ -3,4 +3,5 @@ sample_size: 6
 dataset_subsample_size: 0.0005
 dataset_subsample_seed: 11
 
+llm: speakleash/Bielik-7B-Instruct-v0.1
 evaluation_max_length_diff: 2

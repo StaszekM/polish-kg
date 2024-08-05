@@ -56,8 +56,11 @@ stages:
     - data/edc_baseline/oie_few_shot_examples.txt
     - data/edc_baseline/sd_few_shot_examples.txt
   test:
+    params:
+      - pipelines/edc_baseline/params.yaml:
+        - llm
     # "set -a && source .env && set +a" is responsible for loading the environment variables from the .env file
-    cmd: 'set -a && source .env && set +a && cd $EDC_FORK_REPO_LOCATION && ./run.sh speakleash/Bielik-7B-Instruct-v0.1 $PYTHONPATH/data/edc_baseline $PYTHONPATH/data/edc_baseline/output/polish_kg_target_alignment'
+    cmd: 'set -a && source .env && set +a && cd $EDC_FORK_REPO_LOCATION && ./run.sh ${llm} $PYTHONPATH/data/edc_baseline $PYTHONPATH/data/edc_baseline/output/polish_kg_target_alignment'
     wdir: ../..
     deps:
     - data/edc_baseline/oie_few_shot_examples.txt
