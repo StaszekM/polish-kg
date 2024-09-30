@@ -1,7 +1,8 @@
 random_state: 11
 sample_size: 6
-dataset_subsample_size: 0.0005
+# set this to 1.0 to use the full dataset
+dataset_subsample_size: 1.0
 dataset_subsample_seed: 11
 
 llm: speakleash/Bielik-7B-Instruct-v0.1
-evaluation_max_length_diff: 2
+evaluation_max_length_diff: 100

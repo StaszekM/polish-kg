@@ -25,7 +25,7 @@ stages:
   create_dataset_file:
     cmd: python -m src.edc_baseline.create_dataset_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
       --output_path data/edc_baseline/dataset.txt --verbose --reference_output_path
-      data/edc_baseline/reference.txt --subsample_size 0.0005 --subsample_seed 11
+      data/edc_baseline/reference.txt --subsample_size 1.0 --subsample_seed 11
     deps:
     - path: data/edc_baseline/corpora_cleaned.tsv
       hash: md5
@@ -33,8 +33,8 @@ stages:
       size: 3197757
     - path: src/edc_baseline/create_dataset_file.py
       hash: md5
-      md5: 9151df4aa1ddec88d4ce5a37bef9cd2e
-      size: 2581
+      md5: ad2fe677bb1cb1aa9ca37aac2af78b1b
+      size: 2607
     - path: src/edc_baseline/create_reference_file.py
       hash: md5
       md5: b86836aa557bfd91b3203c3b31d94e98
@@ -42,16 +42,16 @@ stages:
     params:
       pipelines/edc_baseline/params.yaml:
         dataset_subsample_seed: 11
-        dataset_subsample_size: 0.0005
+        dataset_subsample_size: 1.0
     outs:
     - path: data/edc_baseline/dataset.txt
       hash: md5
-      md5: 4f46802fe5d9956ca3aec97611f611e8
-      size: 932
+      md5: 9036c0b37a9fbce80d668b7d7fb9d76e
+      size: 2146204
     - path: data/edc_baseline/reference.txt
       hash: md5
-      md5: 8ed0e74ec40284c760ed38a1b1254098
-      size: 403
+      md5: 9a05285d8aff08248e8565d82842ae06
+      size: 804268
   create_reference_file:
     cmd: python -m src.edc_baseline.create_reference_file --tsv_path data/edc_baseline/corpora_cleaned.tsv
       --output_path data/edc_baseline/reference.txt --verbose
@@ -94,12 +94,12 @@ stages:
     deps:
     - path: data/edc_baseline/dataset.txt
       hash: md5
-      md5: 4f46802fe5d9956ca3aec97611f611e8
-      size: 932
+      md5: 9036c0b37a9fbce80d668b7d7fb9d76e
+      size: 2146204
     - path: data/edc_baseline/reference.txt
       hash: md5
-      md5: 8ed0e74ec40284c760ed38a1b1254098
-      size: 403
+      md5: 9a05285d8aff08248e8565d82842ae06
+      size: 804268
     - path: data/edc_baseline/schema.csv
       hash: md5
       md5: 2f3feedb09ff3d6ed1f97df88f748b1f
@@ -111,36 +111,36 @@ stages:
     outs:
     - path: data/edc_baseline/oie_few_shot_examples.txt
       hash: md5
-      md5: 625e59ff5780d07b04563c7ea237d8f2
-      size: 1093
+      md5: 4ac8009000f5ffc84d1e7ee7eecb8155
+      size: 1076
     - path: data/edc_baseline/sd_few_shot_examples.txt
       hash: md5
-      md5: 6ce5ff209a8729c6ef595061f5e85bda
-      size: 1774
+      md5: 6eff690b741d85710f556a57d32cc61e
+      size: 1750
   test:
     cmd: set -a && source .env && set +a && cd $EDC_FORK_REPO_LOCATION && ./run.sh
       speakleash/Bielik-7B-Instruct-v0.1 $PYTHONPATH/data/edc_baseline $PYTHONPATH/data/edc_baseline/output/polish_kg_target_alignment
     deps:
     - path: data/edc_baseline/dataset.txt
       hash: md5
-      md5: 4f46802fe5d9956ca3aec97611f611e8
-      size: 932
+      md5: 43a4dbfd6af4e74694fec7321cce1ed3
+      size: 1967
     - path: data/edc_baseline/oie_few_shot_examples.txt
       hash: md5
-      md5: 625e59ff5780d07b04563c7ea237d8f2
-      size: 1093
+      md5: 59d49cf0a5554c7b88ebb32fbaa273ea
+      size: 977
     - path: data/edc_baseline/reference.txt
       hash: md5
-      md5: 8ed0e74ec40284c760ed38a1b1254098
-      size: 403
+      md5: e5939889dc0216d46668f4b01b778395
+      size: 785
     - path: data/edc_baseline/schema.csv
       hash: md5
       md5: 2f3feedb09ff3d6ed1f97df88f748b1f
       size: 1569
     - path: data/edc_baseline/sd_few_shot_examples.txt
       hash: md5
-      md5: 6ce5ff209a8729c6ef595061f5e85bda
-      size: 1774
+      md5: 1f5a71573ddf31aac669b9e5b61eda3f
+      size: 1665
     - path: data/edc_baseline/templates
       hash: md5
       md5: 54f7772e28202dddd11e20232d082e17.dir
@@ -152,31 +152,31 @@ stages:
     outs:
     - path: data/edc_baseline/output/polish_kg_target_alignment
       hash: md5
-      md5: 58942a99ba8b1931ebc8eb26feeb74d1.dir
-      size: 520
+      md5: 84177486ef8f41d451f8923ef043f6dd.dir
+      size: 1183
       nfiles: 1
   evaluate:
     cmd: set -a && source .env && set +a && cd $EDC_FORK_REPO_LOCATION && ./evaluate.sh
       $PYTHONPATH/data/edc_baseline/output/polish_kg_target_alignment/edc_output.txt
-      $PYTHONPATH/data/edc_baseline/reference.txt 2 > ./logs.txt && mkdir -p $PYTHONPATH/data/edc_baseline/output/evaluation_result
+      $PYTHONPATH/data/edc_baseline/reference.txt 0 > ./logs.txt && mkdir -p $PYTHONPATH/data/edc_baseline/output/evaluation_result
       && cp ./result_xmls/polish_kg_target_alignment/* $PYTHONPATH/data/edc_baseline/output/evaluation_result
       && cp ./logs.txt $PYTHONPATH/data/edc_baseline/output/evaluation_result/logs.txt
     deps:
     - path: data/edc_baseline/output/polish_kg_target_alignment
       hash: md5
-      md5: 58942a99ba8b1931ebc8eb26feeb74d1.dir
-      size: 520
+      md5: 84177486ef8f41d451f8923ef043f6dd.dir
+      size: 1183
       nfiles: 1
     - path: data/edc_baseline/reference.txt
       hash: md5
-      md5: 8ed0e74ec40284c760ed38a1b1254098
-      size: 403
+      md5: e5939889dc0216d46668f4b01b778395
+      size: 785
     params:
       pipelines/edc_baseline/params.yaml:
-        evaluation_max_length_diff: 2
+        evaluation_max_length_diff: 0
     outs:
     - path: data/edc_baseline/output/evaluation_result
       hash: md5
-      md5: edb6e82c8443abae858065bbb21d69b1.dir
-      size: 7180
+      md5: 99f61e9a0c0d532e611ac0b45f09c251.dir
+      size: 5484
       nfiles: 3

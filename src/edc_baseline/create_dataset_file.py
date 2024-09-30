@@ -32,7 +32,7 @@ def create_dataset_file(
         if df[column].dtype != "object":
             raise TypeError(f"Column '{column}' should have dtype 'object' (string).")
 
-    if subsample_size and subsample_seed:
+    if subsample_size and subsample_size != 1.0 and subsample_seed:
         if verbose:
             print(f"Subsampling {subsample_size} rows with seed {subsample_seed}")
 
