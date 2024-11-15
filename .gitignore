@@ -5,3 +5,5 @@ wandb
 data/maupqa
 __pycache__
 models/**
+/bielik_test_output.ipynb
+/papermill_logs.txt

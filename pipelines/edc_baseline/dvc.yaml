@@ -52,6 +52,20 @@ stages:
     - data/edc_baseline/dataset.txt
     - data/edc_baseline/schema.csv
     - data/edc_baseline/reference.txt
+    - src/edc_baseline/create_fewshot_examples.py
     outs:
     - data/edc_baseline/oie_few_shot_examples.txt
     - data/edc_baseline/sd_few_shot_examples.txt
+  extract_relations_bielik:
+    cmd: papermill --log-output --stdout-file papermill_logs.txt --log-level INFO bielik_test.ipynb bielik_test_output.ipynb
+    wdir: ../..
+    deps:
+    - bielik_test.ipynb
+    - data/edc_baseline/dataset.txt
+    - data/edc_baseline/schema.csv
+    outs:
+    - bielik_test_output.ipynb
+    - data/edc_baseline/errors.txt
+    - data/edc_baseline/extracted_relations.txt
+    - papermill_logs.txt
+    

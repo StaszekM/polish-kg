@@ -34,7 +34,7 @@ def create_fewshot_examples(
         for i, (_, data) in enumerate(sample.iterrows()):
             file.write(f"Przykład {i+1}:\n")
             file.write("Tekst: " + str(data["text"]) + "\n")
-            file.write("Trójki: " + str(data["reference"]) + "\n")
+            file.write("Trójka: " + str(data["reference"]) + "\n")
             file.write("\n")
 
     sample["reference_relations"] = sample["reference"].apply(lambda x: eval(x))
@@ -46,7 +46,7 @@ def create_fewshot_examples(
         for i, (_, data) in enumerate(sample.iterrows()):
             file.write(f"Przykład {i+1}:\n")
             file.write("Tekst: " + str(data["text"]) + "\n")
-            file.write("Trójki: " + str(data["reference"]) + "\n")
+            file.write("Trójka: " + str(data["reference"]) + "\n")
             file.write(
                 "Relacje: ['" + "', '".join(data["reference_relations"]) + "']\n"
             )

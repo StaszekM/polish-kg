@@ -104,6 +104,10 @@ stages:
       hash: md5
       md5: 2f3feedb09ff3d6ed1f97df88f748b1f
       size: 1569
+    - path: src/edc_baseline/create_fewshot_examples.py
+      hash: md5
+      md5: 4fe4a871fcb372ac369e81713413deac
+      size: 2746
     params:
       pipelines/edc_baseline/params.yaml:
         random_state: 11
@@ -111,11 +115,11 @@ stages:
     outs:
     - path: data/edc_baseline/oie_few_shot_examples.txt
       hash: md5
-      md5: 4ac8009000f5ffc84d1e7ee7eecb8155
+      md5: 4bdef24374cdb27448fee60e3816b084
       size: 1076
     - path: data/edc_baseline/sd_few_shot_examples.txt
       hash: md5
-      md5: 6eff690b741d85710f556a57d32cc61e
+      md5: 94de9fd19082bc226b6cfc28f0b8b53f
       size: 1750
   test:
     cmd: set -a && source .env && set +a && cd $EDC_FORK_REPO_LOCATION && ./run.sh
@@ -180,3 +184,36 @@ stages:
       md5: 99f61e9a0c0d532e611ac0b45f09c251.dir
       size: 5484
       nfiles: 3
+  extract_relations_bielik:
+    cmd: papermill --log-output --stdout-file papermill_logs.txt --log-level INFO
+      bielik_test.ipynb bielik_test_output.ipynb
+    deps:
+    - path: bielik_test.ipynb
+      hash: md5
+      md5: 98d957980c01cc3a7b4f67bde59796af
+      size: 13103
+    - path: data/edc_baseline/dataset.txt
+      hash: md5
+      md5: 9036c0b37a9fbce80d668b7d7fb9d76e
+      size: 2146204
+    - path: data/edc_baseline/schema.csv
+      hash: md5
+      md5: 2f3feedb09ff3d6ed1f97df88f748b1f
+      size: 1569
+    outs:
+    - path: bielik_test_output.ipynb
+      hash: md5
+      md5: 4c35c95ac76673f0a59e1861d7e4d794
+      size: 33689
+    - path: data/edc_baseline/errors.txt
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
+    - path: data/edc_baseline/extracted_relations.txt
+      hash: md5
+      md5: 6954649638436ec023d77c868516b330
+      size: 225
+    - path: papermill_logs.txt
+      hash: md5
+      md5: bb3b4fbd20a4c77170509365e52fbaab
+      size: 1169

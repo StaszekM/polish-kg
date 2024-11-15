@@ -9,3 +9,5 @@
 /test.xml
 /train.xml
 /val.xml
+/errors.txt
+/extracted_relations.txt
