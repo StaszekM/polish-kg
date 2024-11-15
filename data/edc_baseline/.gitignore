@@ -5,3 +5,7 @@
 /corpora_cleaned.tsv
 /oie_few_shot_examples.txt
 /sd_few_shot_examples.txt
+/dataset.xml
+/test.xml
+/train.xml
+/val.xml
