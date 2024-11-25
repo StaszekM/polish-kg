@@ -1,0 +1,209 @@
+{
+    "Total_scores": {
+        "Ent_type": {
+            "Correct": 6,
+            "Incorrect": 0,
+            "Partial": 0,
+            "Missed": 0,
+            "Spurious": 0,
+            "Possible": 6,
+            "Actual": 6,
+            "Precision": 1.0,
+            "Recall": 1.0,
+            "F1": 1.0
+        },
+        "Partial": {
+            "Correct": 6,
+            "Incorrect": 0,
+            "Partial": 0,
+            "Missed": 0,
+            "Spurious": 0,
+            "Possible": 6,
+            "Actual": 6,
+            "Precision": 1.0,
+            "Recall": 1.0,
+            "F1": 1.0
+        },
+        "Strict": {
+            "Correct": 6,
+            "Incorrect": 0,
+            "Partial": 0,
+            "Missed": 0,
+            "Spurious": 0,
+            "Possible": 6,
+            "Actual": 6,
+            "Precision": 1.0,
+            "Recall": 1.0,
+            "F1": 1.0
+        },
+        "Exact": {
+            "Correct": 6,
+            "Incorrect": 0,
+            "Partial": 0,
+            "Missed": 0,
+            "Spurious": 0,
+            "Possible": 6,
+            "Actual": 6,
+            "Precision": 1.0,
+            "Recall": 1.0,
+            "F1": 1.0
+        }
+    },
+    "Scores_per_tag": {
+        "Subjects": {
+            "Ent_type": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            },
+            "Partial": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            },
+            "Strict": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            },
+            "Exact": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            }
+        },
+        "Predicates": {
+            "Ent_type": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            },
+            "Partial": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            },
+            "Strict": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            },
+            "Exact": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            }
+        },
+        "Objects": {
+            "Ent_type": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            },
+            "Partial": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            },
+            "Strict": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            },
+            "Exact": {
+                "Correct": 2,
+                "Incorrect": 0,
+                "Partial": 0,
+                "Missed": 0,
+                "Spurious": 0,
+                "Possible": 2,
+                "Actual": 2,
+                "Precision": 1.0,
+                "Recall": 1.0,
+                "F1": 1.0
+            }
+        }
+    },
+    "Exact_match": {
+        "Precision": 1.0,
+        "Recall": 1.0,
+        "F1": 1.0
+    }
+}

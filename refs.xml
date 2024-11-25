@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<benchmark>
+    <entries>
+        <entry category="Unknown" eid="Id0" shape="(X (X))" shape_type="NA" size="1">
+            <originaltripleset>
+                <otriple>Richard Herd | zawód | Aktor</otriple>
+            </originaltripleset>
+            <modifiedtripleset>
+                <mtriple>Richard Herd | zawód | Aktor</mtriple>
+            </modifiedtripleset>
+        </entry>
+        <entry category="Unknown" eid="Id3" shape="(X (X))" shape_type="NA" size="1">
+            <originaltripleset>
+                <otriple>Sean Kanan | zawód | Aktor</otriple>
+            </originaltripleset>
+            <modifiedtripleset>
+                <mtriple>Sean Kanan | zawód | Aktor</mtriple>
+            </modifiedtripleset>
+        </entry>
+        
+    </entries>
+</benchmark>

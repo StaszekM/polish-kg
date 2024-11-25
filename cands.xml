@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<benchmark>
+    <entries>
+        <entry category="Unknown" eid="Id0">
+            <generatedtripleset>
+                <gtriple>Richard Herd | zawód | Aktor</gtriple>
+            </generatedtripleset>
+        </entry>
+        <entry category="Unknown" eid="Id3">
+            <generatedtripleset>
+                <gtriple>Sean Kanan | zawód | Aktor</gtriple>
+            </generatedtripleset>
+        </entry>
+    </entries>
+</benchmark>
