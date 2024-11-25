@@ -190,8 +190,8 @@ stages:
     deps:
     - path: bielik_test.ipynb
       hash: md5
-      md5: 74a0d63f51720ba210e1d4b102e1a926
-      size: 13231
+      md5: c353a2223c5518d93ab7a0e66297503a
+      size: 13438
     - path: data/edc_baseline/dataset.txt
       hash: md5
       md5: 9036c0b37a9fbce80d668b7d7fb9d76e
@@ -203,17 +203,17 @@ stages:
     outs:
     - path: bielik_test_output.ipynb
       hash: md5
-      md5: 92590204cb64e54265446bbe3d736753
-      size: 16999985
-    - path: data/edc_baseline/errors.txt
+      md5: da4fa70b37af206fcca7f0f6f8ff44ae
+      size: 16781742
+    - path: data/edc_baseline/errors.json
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
-    - path: data/edc_baseline/extracted_relations.txt
+      md5: d858800f234bec316774b06848e6ed88
+      size: 18
+    - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 1911ca66c5bf3b0b44a935133632c0ba
-      size: 1039420
+      md5: 9796e03b077af7696e0fabafdbb40f4e
+      size: 1151584
     - path: papermill_logs.txt
       hash: md5
-      md5: f195fb64dac9c4297ec3770e74383d47
-      size: 3494723
+      md5: 301e5703452e9d17ccfb05b9f89e1c42
+      size: 3482297

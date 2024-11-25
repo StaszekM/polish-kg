@@ -65,7 +65,7 @@ stages:
     - data/edc_baseline/schema.csv
     outs:
     - bielik_test_output.ipynb
-    - data/edc_baseline/errors.txt
-    - data/edc_baseline/extracted_relations.txt
+    - data/edc_baseline/errors.json
+    - data/edc_baseline/extracted_relations.json
     - papermill_logs.txt
     
