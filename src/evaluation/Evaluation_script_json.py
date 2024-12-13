@@ -18,6 +18,7 @@ import string
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn import preprocessing
 import json
+from tqdm import tqdm
 
 currentpath = os.getcwd()
 
@@ -459,6 +460,8 @@ def calculateAllScores(newreflist, newcandlist):
     totalsemevallist = []
     totalsemevallistpertag = []
 
+    print('Calculating all scores...')
+
     for idx, candidate in enumerate(newcandlist):
         if len(newcandlist[idx]) != len(newreflist[idx]):
             differencebetween = abs(len(newcandlist[idx]) - len(newreflist[idx]))
@@ -467,8 +470,9 @@ def calculateAllScores(newreflist, newcandlist):
                 newcandlist[idx] = newcandlist[idx] + differencelist
             else:
                 newreflist[idx] = newreflist[idx] + differencelist
+                
 
-    for idx, candidate in enumerate(newcandlist):
+    for idx, candidate in tqdm(enumerate(newcandlist), total=len(newcandlist)):
         candidatesemeval = []
         candidatesemevalpertag = []
         for triple in candidate:
@@ -488,13 +492,14 @@ def calculateAllScores(newreflist, newcandlist):
     return totalsemevallist, totalsemevallistpertag
 
 def calculateSystemScore(totalsemevallist, totalsemevallistpertag, newreflist, newcandlist):
+    print('Calculating system score...')
     selectedsemevallist = []
     selectedsemevallistpertag = []
     alldicts = []
 
     # Get all the permutations of the number of scores given per candidate, so if there's 4 candidates, but 3 references, this part ensures that one of
     # The four will not be scored
-    for idx, candidate in enumerate(newcandlist):
+    for idx, candidate in tqdm(enumerate(newcandlist), total=len(newcandlist)):
         if len(newcandlist[idx]) > len(newreflist[idx]):
             # Get all permutations
             choosecands = list(itertools.permutations([x[0] for x in enumerate(totalsemevallist[idx])], len(totalsemevallist[idx][0])))
@@ -823,6 +828,7 @@ def calculateSystemScore(totalsemevallist, totalsemevallistpertag, newreflist, n
     return alldict
 
 def calculateExactTripleScore(reflist, candlist, alldict):
+    print('Calculating exact triple score...')
     newreflist = [[string.lower() for string in sublist] for sublist in reflist]
     newcandlist = [[string.lower() for string in sublist] for sublist in candlist]
     #First get all the classes by combining the triples in the candidatelist and referencelist
