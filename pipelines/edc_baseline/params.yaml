@@ -1,8 +1,10 @@
-random_state: 11
-sample_size: 6
-# set this to 1.0 to use the full dataset
-dataset_subsample_size: 1.0
+# parameters used by create_dataset_file
+dataset_subsample_size: 1.0 # set this to 1.0 to use the full dataset
 dataset_subsample_seed: 11
 
-llm: speakleash/Bielik-7B-Instruct-v0.1
-evaluation_max_length_diff: 100
+# parameters used by create_fewshot_examples
+sample_size: 6
+random_state: 11
+
+# parameters used by extract_relations_bielik
+debug_llm: 1 # true/false

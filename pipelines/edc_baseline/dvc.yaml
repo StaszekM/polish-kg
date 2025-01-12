@@ -57,15 +57,34 @@ stages:
     - data/edc_baseline/oie_few_shot_examples.txt
     - data/edc_baseline/sd_few_shot_examples.txt
   extract_relations_bielik:
-    cmd: papermill --log-output --stdout-file papermill_logs.txt --log-level INFO bielik_test.ipynb bielik_test_output.ipynb
+    params:
+      - pipelines/edc_baseline/params.yaml:
+        - debug_llm
+    cmd: papermill --log-output --stdout-file notebooks/extract_relations/bielik_papermill_logs.txt --log-level INFO --parameters DEBUG ${debug_llm} notebooks/extract_relations/bielik_extract_relations.ipynb notebooks/extract_relations/bielik_extract_relations_output.ipynb
     wdir: ../..
     deps:
-    - bielik_test.ipynb
+    - notebooks/extract_relations/bielik_extract_relations.ipynb
     - data/edc_baseline/dataset.txt
     - data/edc_baseline/schema.csv
     outs:
-    - bielik_test_output.ipynb
+    - notebooks/extract_relations/bielik_extract_relations_output.ipynb
     - data/edc_baseline/errors.json
     - data/edc_baseline/extracted_relations.json
-    - papermill_logs.txt
-    
+    - notebooks/extract_relations/bielik_papermill_logs.txt
+  evaluate_bielik:
+    params:
+      - pipelines/edc_baseline/params.yaml:
+        - debug_llm
+    cmd: papermill --log-output --stdout-file notebooks/evaluation/evaluate_bielik_logs.txt --log-level INFO --parameters DEBUG ${debug_llm} notebooks/evaluation/evaluate_bielik.ipynb notebooks/evaluation/evaluate_bielik_output.ipynb
+    wdir: ../..
+    deps:
+    - notebooks/evaluation/evaluate_bielik.ipynb
+    - data/edc_baseline/extracted_relations.json
+    - data/edc_baseline/reference.txt
+    - src/evaluation/Evaluation_script_json.py
+    outs:
+    - notebooks/evaluation/evaluate_bielik_output.ipynb
+    - notebooks/evaluation/evaluate_bielik_logs.txt
+    - data/edc_baseline/refs.xml
+    - data/edc_baseline/cands.xml
+    - data/edc_baseline/evaluation_results.json

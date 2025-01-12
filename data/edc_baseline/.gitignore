@@ -13,3 +13,6 @@
 /extracted_relations.txt
 /errors.json
 /extracted_relations.json
+/refs.xml
+/cands.xml
+/evaluation_results.json
