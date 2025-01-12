@@ -236,8 +236,8 @@ stages:
       size: 804268
     - path: notebooks/evaluation/evaluate_bielik.ipynb
       hash: md5
-      md5: f53c548b467f7c7b806affee986538ad
-      size: 7760
+      md5: 15b83cc513bdf1a929478624c775bfff
+      size: 7728
     - path: src/evaluation/Evaluation_script_json.py
       hash: md5
       md5: a126b5c042d7a87737b37f7d8fb75e64
@@ -260,9 +260,9 @@ stages:
       size: 2859
     - path: notebooks/evaluation/evaluate_bielik_logs.txt
       hash: md5
-      md5: 65e8f09a5c7e760564d750f4a3bc3334
+      md5: 81170d99c26d922e9aaa05bc469faae0
       size: 1610
     - path: notebooks/evaluation/evaluate_bielik_output.ipynb
       hash: md5
-      md5: a370770505580f65c7d52717269d7de6
-      size: 15134
+      md5: 4adb178f5ba8bc2e6933ab7000b6f72f
+      size: 15185
