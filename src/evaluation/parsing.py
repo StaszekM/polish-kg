@@ -3,6 +3,7 @@ import json
 import ast
 from typing import Union
 from xml.etree import ElementTree as ET
+from argparse import ArgumentParser
 
 from src.make_paths_relative_to_root import *
 
@@ -106,3 +107,21 @@ def parse_extracted_relations(
 
     refs_tree = ET.ElementTree(refs_root)
     refs_tree.write(output_refs_xml, encoding="utf-8", xml_declaration=True)
+
+if __name__ == '__main__':
+    parser = ArgumentParser()
+    parser.add_argument("--extracted_relations_json", type=str, required=True)
+    parser.add_argument("--reference_txt", type=str, required=True)
+    parser.add_argument("--output_refs_xml", type=str, required=True)
+    parser.add_argument("--output_cands_xml", type=str, required=True)
+    parser.add_argument("--DEBUG", type=int)
+
+    args = parser.parse_args()
+
+    parse_extracted_relations(
+        extracted_relations_json=args.extracted_relations_json,
+        reference_txt=args.reference_txt,
+        output_refs_xml=args.output_refs_xml,
+        output_cands_xml=args.output_cands_xml,
+        DEBUG=args.DEBUG,
+    )

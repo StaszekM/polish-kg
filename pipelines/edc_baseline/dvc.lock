@@ -222,9 +222,30 @@ stages:
       md5: a9d6990cd55f8b2cc099dd1022bb1ba5
       size: 1925
   evaluate_bielik:
-    cmd: papermill --log-output --stdout-file notebooks/evaluation/evaluate_bielik_logs.txt
-      --log-level INFO --parameters DEBUG 1 notebooks/evaluation/evaluate_bielik.ipynb
-      notebooks/evaluation/evaluate_bielik_output.ipynb
+    cmd: python src/evaluation/Evaluation_script_json.py data/edc_baseline/refs.xml
+      data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json
+    deps:
+    - path: data/edc_baseline/cands.xml
+      hash: md5
+      md5: 7bfcf4f0abd7520af80adcca76faf18f
+      size: 1517
+    - path: data/edc_baseline/refs.xml
+      hash: md5
+      md5: f16445dfdb4c4a37a74f4b11367e3bf7
+      size: 2859
+    - path: src/evaluation/Evaluation_script_json.py
+      hash: md5
+      md5: a126b5c042d7a87737b37f7d8fb75e64
+      size: 50523
+    outs:
+    - path: data/edc_baseline/evaluation_results.json
+      hash: md5
+      md5: 6052cf44fff532278048ae20ca4750f9
+      size: 3050
+  prepare_for_evaluation:
+    cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
+      --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
+      --reference_txt data/edc_baseline/reference.txt --DEBUG 1
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
@@ -234,39 +255,19 @@ stages:
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
       size: 804268
-    - path: notebooks/evaluation/evaluate_bielik.ipynb
-      hash: md5
-      md5: 3a44e5854f7bbf38a64767db44f1f505
-      size: 3153
-    - path: src/evaluation/Evaluation_script_json.py
-      hash: md5
-      md5: a126b5c042d7a87737b37f7d8fb75e64
-      size: 50523
     - path: src/evaluation/parsing.py
       hash: md5
-      md5: 2bc75bcdd17c9ba851d21e851be9b118
-      size: 3126
+      md5: 7da07fa7a533a753baad0b3b91de512e
+      size: 3848
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 1
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: b075e4901025c1fb60647553d2b19d59
-      size: 2138
-    - path: data/edc_baseline/evaluation_results.json
-      hash: md5
-      md5: 28e44fba6e8970598b405bd04429649a
-      size: 5944
+      md5: 7bfcf4f0abd7520af80adcca76faf18f
+      size: 1517
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: 5125d104c7bcd75e0e2d442e212d017d
-      size: 3910
-    - path: notebooks/evaluation/evaluate_bielik_logs.txt
-      hash: md5
-      md5: 856878dbc5c7829160241c31824fc61b
-      size: 1604
-    - path: notebooks/evaluation/evaluate_bielik_output.ipynb
-      hash: md5
-      md5: a9b71f19d21b32331d55ebcdf3eb3898
-      size: 6543
+      md5: f16445dfdb4c4a37a74f4b11367e3bf7
+      size: 2859

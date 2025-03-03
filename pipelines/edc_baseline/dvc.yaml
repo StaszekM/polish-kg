@@ -71,21 +71,25 @@ stages:
     - data/edc_baseline/errors.json
     - data/edc_baseline/extracted_relations.json
     - notebooks/extract_relations/bielik_papermill_logs.txt
-  evaluate_bielik:
+  prepare_for_evaluation:
     params:
       - pipelines/edc_baseline/params.yaml:
         - debug_llm
-    cmd: papermill --log-output --stdout-file notebooks/evaluation/evaluate_bielik_logs.txt --log-level INFO --parameters DEBUG ${debug_llm} notebooks/evaluation/evaluate_bielik.ipynb notebooks/evaluation/evaluate_bielik_output.ipynb
+    cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml --reference_txt data/edc_baseline/reference.txt --DEBUG ${debug_llm}
     wdir: ../..
-    deps:
-    - notebooks/evaluation/evaluate_bielik.ipynb
+    deps: 
     - data/edc_baseline/extracted_relations.json
     - data/edc_baseline/reference.txt
-    - src/evaluation/Evaluation_script_json.py
     - src/evaluation/parsing.py
     outs:
-    - notebooks/evaluation/evaluate_bielik_output.ipynb
-    - notebooks/evaluation/evaluate_bielik_logs.txt
     - data/edc_baseline/refs.xml
     - data/edc_baseline/cands.xml
+  evaluate_bielik:
+    cmd: python src/evaluation/Evaluation_script_json.py data/edc_baseline/refs.xml data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json
+    wdir: ../..
+    deps:
+    - data/edc_baseline/refs.xml
+    - data/edc_baseline/cands.xml
+    - src/evaluation/Evaluation_script_json.py
+    outs:
     - data/edc_baseline/evaluation_results.json
