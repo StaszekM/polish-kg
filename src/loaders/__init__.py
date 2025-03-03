@@ -1,1 +1,1 @@
-__all__ = ["load_bielik", "load_maupqa"]
+__all__ = ["load_bielik"]

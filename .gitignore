@@ -2,7 +2,6 @@ env
 .gdrive-remote-credentials
 .env
 wandb
-data/maupqa
 __pycache__
 models/**
 /papermill_logs.txt
