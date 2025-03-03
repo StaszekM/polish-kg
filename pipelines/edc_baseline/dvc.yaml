@@ -60,17 +60,17 @@ stages:
     params:
       - pipelines/edc_baseline/params.yaml:
         - debug_llm
-    cmd: papermill --log-output --stdout-file notebooks/extract_relations/bielik_papermill_logs.txt --log-level INFO --parameters DEBUG ${debug_llm} notebooks/extract_relations/bielik_extract_relations.ipynb notebooks/extract_relations/bielik_extract_relations_output.ipynb
+    cmd: papermill --log-output --stdout-file notebooks/extract_relations/local_papermill_logs.txt --log-level INFO --parameters DEBUG ${debug_llm} notebooks/extract_relations/local_extract_relations.ipynb notebooks/extract_relations/local_extract_relations_output.ipynb
     wdir: ../..
     deps:
-    - notebooks/extract_relations/bielik_extract_relations.ipynb
+    - notebooks/extract_relations/local_extract_relations.ipynb
     - data/edc_baseline/dataset.txt
     - data/edc_baseline/schema.csv
     outs:
-    - notebooks/extract_relations/bielik_extract_relations_output.ipynb
+    - notebooks/extract_relations/local_extract_relations_output.ipynb
     - data/edc_baseline/errors.json
     - data/edc_baseline/extracted_relations.json
-    - notebooks/extract_relations/bielik_papermill_logs.txt
+    - notebooks/extract_relations/local_papermill_logs.txt
   prepare_for_evaluation:
     params:
       - pipelines/edc_baseline/params.yaml:

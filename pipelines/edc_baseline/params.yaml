@@ -6,5 +6,8 @@ dataset_subsample_seed: 11
 sample_size: 6
 random_state: 11
 
+
+
 # parameters used by extract_relations, prepare_for_evaluation
+llm: "speakleash/Bielik-11B-v2.2-Instruct"
 debug_llm: 1 # true/false
