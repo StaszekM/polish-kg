@@ -82,6 +82,7 @@ stages:
     - data/edc_baseline/extracted_relations.json
     - data/edc_baseline/reference.txt
     - src/evaluation/Evaluation_script_json.py
+    - src/evaluation/parsing.py
     outs:
     - notebooks/evaluation/evaluate_bielik_output.ipynb
     - notebooks/evaluation/evaluate_bielik_logs.txt

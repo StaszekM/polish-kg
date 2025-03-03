@@ -236,33 +236,37 @@ stages:
       size: 804268
     - path: notebooks/evaluation/evaluate_bielik.ipynb
       hash: md5
-      md5: 15b83cc513bdf1a929478624c775bfff
-      size: 7728
+      md5: 3a44e5854f7bbf38a64767db44f1f505
+      size: 3153
     - path: src/evaluation/Evaluation_script_json.py
       hash: md5
       md5: a126b5c042d7a87737b37f7d8fb75e64
       size: 50523
+    - path: src/evaluation/parsing.py
+      hash: md5
+      md5: 2bc75bcdd17c9ba851d21e851be9b118
+      size: 3126
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 1
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 7bfcf4f0abd7520af80adcca76faf18f
-      size: 1517
+      md5: b075e4901025c1fb60647553d2b19d59
+      size: 2138
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 6052cf44fff532278048ae20ca4750f9
-      size: 3050
+      md5: 28e44fba6e8970598b405bd04429649a
+      size: 5944
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: f16445dfdb4c4a37a74f4b11367e3bf7
-      size: 2859
+      md5: 5125d104c7bcd75e0e2d442e212d017d
+      size: 3910
     - path: notebooks/evaluation/evaluate_bielik_logs.txt
       hash: md5
-      md5: 81170d99c26d922e9aaa05bc469faae0
-      size: 1610
+      md5: 856878dbc5c7829160241c31824fc61b
+      size: 1604
     - path: notebooks/evaluation/evaluate_bielik_output.ipynb
       hash: md5
-      md5: 4adb178f5ba8bc2e6933ab7000b6f72f
-      size: 15185
+      md5: a9b71f19d21b32331d55ebcdf3eb3898
+      size: 6543
