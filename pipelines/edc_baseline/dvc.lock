@@ -106,8 +106,8 @@ stages:
       size: 1750
   extract_relations:
     cmd: papermill --log-output --stdout-file notebooks/extract_relations/local_papermill_logs.txt
-      --log-level INFO --parameters DEBUG 1 --parameters model_name dummy notebooks/extract_relations/local_extract_relations.ipynb
-      notebooks/extract_relations/local_extract_relations_output.ipynb
+      --log-level INFO --parameters DEBUG 1 --parameters model_name speakleash/Bielik-11B-v2.2-Instruct
+      notebooks/extract_relations/local_extract_relations.ipynb notebooks/extract_relations/local_extract_relations_output.ipynb
     deps:
     - path: data/edc_baseline/dataset.txt
       hash: md5
@@ -128,7 +128,7 @@ stages:
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 1
-        llm: dummy
+        llm: speakleash/Bielik-11B-v2.2-Instruct
     outs:
     - path: data/edc_baseline/errors.json
       hash: md5
@@ -136,16 +136,16 @@ stages:
       size: 18
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: a2b06544f755fe4430731f5c96d8b330
-      size: 333
+      md5: 8b570b83b4258eac7e4c35edf09c9c92
+      size: 567
     - path: notebooks/extract_relations/local_extract_relations_output.ipynb
       hash: md5
-      md5: 4390344b3d9fb2febe2b39f93ed76443
-      size: 15783
+      md5: b5bf0d6e0c9beef692cbc8a716b31c7b
+      size: 35858
     - path: notebooks/extract_relations/local_papermill_logs.txt
       hash: md5
-      md5: cc0698ee97da6718d2653a4bf581dac5
-      size: 1683
+      md5: 40032bd01b42702505752594ad5c90a8
+      size: 1917
   prepare_for_evaluation:
     cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
       --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
@@ -153,8 +153,8 @@ stages:
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: a2b06544f755fe4430731f5c96d8b330
-      size: 333
+      md5: 8b570b83b4258eac7e4c35edf09c9c92
+      size: 567
     - path: data/edc_baseline/reference.txt
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
@@ -169,8 +169,8 @@ stages:
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 766a6ff5a734c421907ad30c69722723
-      size: 1041
+      md5: cca3e90dc24c93a9705173050613c71b
+      size: 1508
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: f16445dfdb4c4a37a74f4b11367e3bf7
@@ -181,8 +181,8 @@ stages:
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 766a6ff5a734c421907ad30c69722723
-      size: 1041
+      md5: cca3e90dc24c93a9705173050613c71b
+      size: 1508
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: f16445dfdb4c4a37a74f4b11367e3bf7
@@ -194,5 +194,5 @@ stages:
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 3fcbcfc6284eeec4fedd82c883c5aefa
-      size: 2614
+      md5: c5d737028132dd864dee7da2548a7243
+      size: 2898
