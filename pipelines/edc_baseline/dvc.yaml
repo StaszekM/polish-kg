@@ -56,7 +56,7 @@ stages:
     outs:
     - data/edc_baseline/oie_few_shot_examples.txt
     - data/edc_baseline/sd_few_shot_examples.txt
-  extract_relations_bielik:
+  extract_relations:
     params:
       - pipelines/edc_baseline/params.yaml:
         - debug_llm
@@ -84,7 +84,7 @@ stages:
     outs:
     - data/edc_baseline/refs.xml
     - data/edc_baseline/cands.xml
-  evaluate_bielik:
+  evaluate:
     cmd: python src/evaluation/Evaluation_script_json.py data/edc_baseline/refs.xml data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json
     wdir: ../..
     deps:

@@ -6,5 +6,5 @@ dataset_subsample_seed: 11
 sample_size: 6
 random_state: 11
 
-# parameters used by extract_relations_bielik
+# parameters used by extract_relations, prepare_for_evaluation
 debug_llm: 1 # true/false
