@@ -232,3 +232,7 @@ stages:
       hash: md5
       md5: b278292523e7951af426f93f580d80a6
       size: 227
+    - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
+      hash: md5
+      md5: 304f9c430fd5ea4a308267a5638b6602
+      size: 93826

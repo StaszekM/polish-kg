@@ -108,5 +108,7 @@ stages:
     - data/edc_baseline/evaluation_results_per_line.json
     - data/edc_baseline/cands.xml
     - data/edc_baseline/refs.xml
+    outs:
+    - notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     metrics:
     - data/edc_baseline/metrics.json
