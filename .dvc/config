@@ -2,6 +2,6 @@
     remote = gdrive-remote
     autostage = true
 ['remote "gdrive-remote"']
-    url = gdrive://1W3Ddw6_KbVNIEmjhPKtfaFRiKvzP2FoJ
-    gdrive_client_id = 739970881646-4niecvio1r3vj9vs1i00fl6dtlo2c8th.apps.googleusercontent.com
-    gdrive_client_secret = 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
+    url = my_url
+    gdrive_client_id = my_client_id
+    gdrive_client_secret = my_client_secret
