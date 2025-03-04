@@ -96,3 +96,17 @@ stages:
     outs:
     - data/edc_baseline/evaluation_results.json
     - data/edc_baseline/evaluation_results_per_line.json
+  generate_report:
+    params:
+        - pipelines/edc_baseline/params.yaml:
+          - llm
+    cmd: papermill --parameters model_name ${llm} notebooks/reports/report_vanilla_relation_extraction.ipynb notebooks/reports/report_vanilla_relation_extraction_output.ipynb
+    wdir: ../..
+    deps:
+    - notebooks/reports/report_vanilla_relation_extraction.ipynb
+    - data/edc_baseline/evaluation_results.json
+    - data/edc_baseline/evaluation_results_per_line.json
+    - data/edc_baseline/cands.xml
+    - data/edc_baseline/refs.xml
+    metrics:
+    - data/edc_baseline/metrics.json

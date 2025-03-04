@@ -200,3 +200,35 @@ stages:
       hash: md5
       md5: 99d036b67d6724813470dcdf105fa049
       size: 19472
+  generate_report:
+    cmd: papermill --parameters model_name speakleash/Bielik-11B-v2.2-Instruct notebooks/reports/report_vanilla_relation_extraction.ipynb
+      notebooks/reports/report_vanilla_relation_extraction_output.ipynb
+    deps:
+    - path: data/edc_baseline/cands.xml
+      hash: md5
+      md5: cca3e90dc24c93a9705173050613c71b
+      size: 1508
+    - path: data/edc_baseline/evaluation_results.json
+      hash: md5
+      md5: c5d737028132dd864dee7da2548a7243
+      size: 2898
+    - path: data/edc_baseline/evaluation_results_per_line.json
+      hash: md5
+      md5: 99d036b67d6724813470dcdf105fa049
+      size: 19472
+    - path: data/edc_baseline/refs.xml
+      hash: md5
+      md5: f16445dfdb4c4a37a74f4b11367e3bf7
+      size: 2859
+    - path: notebooks/reports/report_vanilla_relation_extraction.ipynb
+      hash: md5
+      md5: aaca3ce16829b57a40cd835711f5f1bb
+      size: 75907
+    params:
+      pipelines/edc_baseline/params.yaml:
+        llm: speakleash/Bielik-11B-v2.2-Instruct
+    outs:
+    - path: data/edc_baseline/metrics.json
+      hash: md5
+      md5: b278292523e7951af426f93f580d80a6
+      size: 227
