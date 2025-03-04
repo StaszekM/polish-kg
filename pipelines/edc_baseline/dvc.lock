@@ -119,12 +119,12 @@ stages:
       size: 1569
     - path: notebooks/extract_relations/local_extract_relations.ipynb
       hash: md5
-      md5: 94ede44115a0d74ad1eabe49b3369d58
-      size: 29152
+      md5: 6d7df05dea4ace2596254bd15381074d
+      size: 29390
     - path: src/extractors/extractor.py
       hash: md5
-      md5: fb7271985e3096dec27e10b32cf4eb64
-      size: 2895
+      md5: e65dceb6c1f586eb1194aa4744c5bffb
+      size: 4727
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 1
@@ -136,16 +136,16 @@ stages:
       size: 18
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 8b570b83b4258eac7e4c35edf09c9c92
-      size: 567
+      md5: 6b94daaeddea6fd87b48a8c4ba22b32e
+      size: 600
     - path: notebooks/extract_relations/local_extract_relations_output.ipynb
       hash: md5
-      md5: b5bf0d6e0c9beef692cbc8a716b31c7b
-      size: 35858
+      md5: f33da972f6f2bd9244b2eba161be99f5
+      size: 31792
     - path: notebooks/extract_relations/local_papermill_logs.txt
       hash: md5
-      md5: 40032bd01b42702505752594ad5c90a8
-      size: 1917
+      md5: 7622e3d7343703b92f29803369ea70e9
+      size: 1950
   prepare_for_evaluation:
     cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
       --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
@@ -153,8 +153,8 @@ stages:
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 8b570b83b4258eac7e4c35edf09c9c92
-      size: 567
+      md5: 6b94daaeddea6fd87b48a8c4ba22b32e
+      size: 600
     - path: data/edc_baseline/reference.txt
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
@@ -169,8 +169,8 @@ stages:
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: cca3e90dc24c93a9705173050613c71b
-      size: 1508
+      md5: e8ec52e67fa2b2cb406774b6007d9fc9
+      size: 1546
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: f16445dfdb4c4a37a74f4b11367e3bf7
@@ -181,8 +181,8 @@ stages:
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: cca3e90dc24c93a9705173050613c71b
-      size: 1508
+      md5: e8ec52e67fa2b2cb406774b6007d9fc9
+      size: 1546
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: f16445dfdb4c4a37a74f4b11367e3bf7
@@ -194,28 +194,28 @@ stages:
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: c5d737028132dd864dee7da2548a7243
-      size: 2898
+      md5: a76e11f9c1ab2b45e6c890ff3e3b9fe3
+      size: 2934
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 99d036b67d6724813470dcdf105fa049
-      size: 19472
+      md5: b68f91e1a9c54e33585f3868f15df10a
+      size: 19507
   generate_report:
     cmd: papermill --parameters model_name speakleash/Bielik-11B-v2.2-Instruct notebooks/reports/report_vanilla_relation_extraction.ipynb
       notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: cca3e90dc24c93a9705173050613c71b
-      size: 1508
+      md5: e8ec52e67fa2b2cb406774b6007d9fc9
+      size: 1546
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: c5d737028132dd864dee7da2548a7243
-      size: 2898
+      md5: a76e11f9c1ab2b45e6c890ff3e3b9fe3
+      size: 2934
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 99d036b67d6724813470dcdf105fa049
-      size: 19472
+      md5: b68f91e1a9c54e33585f3868f15df10a
+      size: 19507
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: f16445dfdb4c4a37a74f4b11367e3bf7
@@ -230,9 +230,9 @@ stages:
     outs:
     - path: data/edc_baseline/metrics.json
       hash: md5
-      md5: b278292523e7951af426f93f580d80a6
-      size: 227
+      md5: c263084c2a4da8e1e7828784c29fb42a
+      size: 226
     - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
       hash: md5
-      md5: 304f9c430fd5ea4a308267a5638b6602
-      size: 93826
+      md5: ad3adc2162ed006139cf62dcf019212a
+      size: 94227
