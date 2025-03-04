@@ -177,7 +177,7 @@ stages:
       size: 2859
   evaluate:
     cmd: python src/evaluation/Evaluation_script_json.py data/edc_baseline/refs.xml
-      data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json
+      data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json data/edc_baseline/evaluation_results_per_line.json
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
@@ -189,10 +189,14 @@ stages:
       size: 2859
     - path: src/evaluation/Evaluation_script_json.py
       hash: md5
-      md5: a126b5c042d7a87737b37f7d8fb75e64
-      size: 50523
+      md5: 70d14b034550e03caf153aa0866fa9a7
+      size: 50668
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
       md5: c5d737028132dd864dee7da2548a7243
       size: 2898
+    - path: data/edc_baseline/evaluation_results_per_line.json
+      hash: md5
+      md5: 99d036b67d6724813470dcdf105fa049
+      size: 19472

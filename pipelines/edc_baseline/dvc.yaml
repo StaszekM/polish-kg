@@ -87,7 +87,7 @@ stages:
     - data/edc_baseline/refs.xml
     - data/edc_baseline/cands.xml
   evaluate:
-    cmd: python src/evaluation/Evaluation_script_json.py data/edc_baseline/refs.xml data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json
+    cmd: python src/evaluation/Evaluation_script_json.py data/edc_baseline/refs.xml data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json data/edc_baseline/evaluation_results_per_line.json
     wdir: ../..
     deps:
     - data/edc_baseline/refs.xml
@@ -95,3 +95,4 @@ stages:
     - src/evaluation/Evaluation_script_json.py
     outs:
     - data/edc_baseline/evaluation_results.json
+    - data/edc_baseline/evaluation_results_per_line.json

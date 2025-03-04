@@ -848,7 +848,7 @@ def calculateExactTripleScore(reflist, candlist, alldict):
 
     return alldict
 
-def main(reffile, candfile, outputfile):
+def main(reffile, candfile, outputfile, per_example_score_file):
     reflist, newreflist = getRefs(reffile)
     candlist, newcandlist = getCands(candfile)
     totalsemevallist, totalsemevallistpertag = calculateAllScores(newreflist, newcandlist)
@@ -856,7 +856,9 @@ def main(reffile, candfile, outputfile):
     alldict2 = calculateExactTripleScore(reflist, candlist, alldict)
     with open(outputfile, 'w') as outfile:
         json.dump(alldict2, outfile)
+    with open(per_example_score_file, 'w') as outfile:
+        json.dump(totalsemevallistpertag, outfile)
 
 #main(currentpath + '/Refs.xml', currentpath + '/Cands2.xml', currentpath + '/Results.json')
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
