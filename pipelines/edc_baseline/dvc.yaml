@@ -113,3 +113,6 @@ stages:
     - notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     metrics:
     - data/edc_baseline/metrics.json
+    plots:
+    - data/edc_baseline/report_total_found.png
+    - data/edc_baseline/report_total_f1.png

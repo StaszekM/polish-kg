@@ -226,8 +226,8 @@ stages:
       size: 2859
     - path: notebooks/reports/report_vanilla_relation_extraction.ipynb
       hash: md5
-      md5: aaca3ce16829b57a40cd835711f5f1bb
-      size: 75907
+      md5: 4d731531ae35dc1e32f276204ec5c9af
+      size: 76050
     params:
       pipelines/edc_baseline/params.yaml:
         llm: o3-mini
@@ -236,7 +236,15 @@ stages:
       hash: md5
       md5: a4bb34f4a1f02b239412e9376ad64284
       size: 241
+    - path: data/edc_baseline/report_total_f1.png
+      hash: md5
+      md5: 1fceb5803aa293c34f4a44f4230b194f
+      size: 17865
+    - path: data/edc_baseline/report_total_found.png
+      hash: md5
+      md5: 555d246f18d5d98a3976142808212c82
+      size: 23580
     - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
       hash: md5
-      md5: e3f1655b428f433c11e43f2df13ef540
-      size: 83417
+      md5: 31b788e2c801900264a2803c459119d8
+      size: 83560

@@ -18,3 +18,5 @@
 /evaluation_results.json
 /evaluation_results_per_line.json
 /metrics.json
+/report_total_found.png
+/report_total_f1.png
