@@ -106,7 +106,7 @@ stages:
       size: 1750
   extract_relations:
     cmd: papermill --log-output --stdout-file notebooks/extract_relations/local_papermill_logs.txt
-      --log-level INFO --parameters DEBUG 1 --parameters model_name speakleash/Bielik-11B-v2.2-Instruct
+      --log-level INFO --parameters DEBUG 1 --parameters model_name CYFRAGOVPL/Llama-PLLuM-8B-instruct
       notebooks/extract_relations/local_extract_relations.ipynb notebooks/extract_relations/local_extract_relations_output.ipynb
     deps:
     - path: data/edc_baseline/dataset.txt
@@ -119,16 +119,16 @@ stages:
       size: 1569
     - path: notebooks/extract_relations/local_extract_relations.ipynb
       hash: md5
-      md5: 6d7df05dea4ace2596254bd15381074d
-      size: 29390
+      md5: 5b7756cb7e0af8dbc4411827814a6b14
+      size: 29394
     - path: src/extractors/extractor.py
       hash: md5
-      md5: e65dceb6c1f586eb1194aa4744c5bffb
-      size: 4727
+      md5: e21376c40831d77143020854a6cc2cc2
+      size: 4885
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 1
-        llm: speakleash/Bielik-11B-v2.2-Instruct
+        llm: CYFRAGOVPL/Llama-PLLuM-8B-instruct
     outs:
     - path: data/edc_baseline/errors.json
       hash: md5
@@ -136,16 +136,16 @@ stages:
       size: 18
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 6b94daaeddea6fd87b48a8c4ba22b32e
-      size: 600
+      md5: da1af3f449573a7dd4e85d4d15698591
+      size: 610
     - path: notebooks/extract_relations/local_extract_relations_output.ipynb
       hash: md5
-      md5: f33da972f6f2bd9244b2eba161be99f5
-      size: 31792
+      md5: 145a40ed08e204d7bd6a9ddb468497c8
+      size: 36572
     - path: notebooks/extract_relations/local_papermill_logs.txt
       hash: md5
-      md5: 7622e3d7343703b92f29803369ea70e9
-      size: 1950
+      md5: c46d9d472c3a7a94737fd6ce8f70a7e4
+      size: 1960
   prepare_for_evaluation:
     cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
       --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
@@ -153,8 +153,8 @@ stages:
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 6b94daaeddea6fd87b48a8c4ba22b32e
-      size: 600
+      md5: da1af3f449573a7dd4e85d4d15698591
+      size: 610
     - path: data/edc_baseline/reference.txt
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
@@ -169,8 +169,8 @@ stages:
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: e8ec52e67fa2b2cb406774b6007d9fc9
-      size: 1546
+      md5: f2f5f8860cfa68f070b7adf5901bc08f
+      size: 1353
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: f16445dfdb4c4a37a74f4b11367e3bf7
@@ -181,8 +181,8 @@ stages:
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: e8ec52e67fa2b2cb406774b6007d9fc9
-      size: 1546
+      md5: f2f5f8860cfa68f070b7adf5901bc08f
+      size: 1353
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: f16445dfdb4c4a37a74f4b11367e3bf7
@@ -194,28 +194,28 @@ stages:
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: a76e11f9c1ab2b45e6c890ff3e3b9fe3
-      size: 2934
+      md5: 0e6d9afbb8b1caadb5ec129625b52988
+      size: 3049
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: b68f91e1a9c54e33585f3868f15df10a
-      size: 19507
+      md5: c564da20cbe52ac99c7bab57889cb89d
+      size: 19203
   generate_report:
-    cmd: papermill --parameters model_name speakleash/Bielik-11B-v2.2-Instruct notebooks/reports/report_vanilla_relation_extraction.ipynb
+    cmd: papermill --parameters model_name CYFRAGOVPL/Llama-PLLuM-8B-instruct notebooks/reports/report_vanilla_relation_extraction.ipynb
       notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: e8ec52e67fa2b2cb406774b6007d9fc9
-      size: 1546
+      md5: f2f5f8860cfa68f070b7adf5901bc08f
+      size: 1353
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: a76e11f9c1ab2b45e6c890ff3e3b9fe3
-      size: 2934
+      md5: 0e6d9afbb8b1caadb5ec129625b52988
+      size: 3049
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: b68f91e1a9c54e33585f3868f15df10a
-      size: 19507
+      md5: c564da20cbe52ac99c7bab57889cb89d
+      size: 19203
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: f16445dfdb4c4a37a74f4b11367e3bf7
@@ -226,13 +226,13 @@ stages:
       size: 75907
     params:
       pipelines/edc_baseline/params.yaml:
-        llm: speakleash/Bielik-11B-v2.2-Instruct
+        llm: CYFRAGOVPL/Llama-PLLuM-8B-instruct
     outs:
     - path: data/edc_baseline/metrics.json
       hash: md5
-      md5: c263084c2a4da8e1e7828784c29fb42a
-      size: 226
+      md5: 8cbc0366525614bdf0a18eeef1528cb3
+      size: 258
     - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
       hash: md5
-      md5: ad3adc2162ed006139cf62dcf019212a
-      size: 94227
+      md5: 9f520d3e735fabd32eaa1f00a526309e
+      size: 95998

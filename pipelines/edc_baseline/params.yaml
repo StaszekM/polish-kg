@@ -9,5 +9,5 @@ random_state: 11
 
 
 # parameters used by extract_relations, prepare_for_evaluation
-llm: "speakleash/Bielik-11B-v2.2-Instruct" # speakleash/Bielik-11B-v2.2-Instruct or dummy or CYFRAGOVPL/PLLuM-12B-nc-instruct
+llm: "CYFRAGOVPL/Llama-PLLuM-8B-instruct" # speakleash/Bielik-11B-v2.2-Instruct or dummy or CYFRAGOVPL/Llama-PLLuM-8B-instruct
 debug_llm: 1 # true/false

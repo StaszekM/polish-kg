@@ -80,10 +80,10 @@ class PllumExtractor(Extractor):
         super().__init__()
 
         self.tokenizer = AutoTokenizer.from_pretrained(
-            "CYFRAGOVPL/PLLuM-12B-nc-instruct"
+            "CYFRAGOVPL/Llama-PLLuM-8B-instruct"
         )
         self.model = AutoModelForCausalLM.from_pretrained(
-            "CYFRAGOVPL/PLLuM-12B-nc-instruct", torch_dtype=torch.float16
+            "CYFRAGOVPL/Llama-PLLuM-8B-instruct", torch_dtype=torch.float16
         )
         self.model.to(device)
         self.device = device
@@ -105,26 +105,27 @@ class PllumExtractor(Extractor):
         ]
 
     def get_response_text(self, messages_template: list):
-        input_ids = self.tokenizer.apply_chat_template(
-            messages_template, return_tensors="pt", add_generation_prompt=True
+        input_dict = self.tokenizer.apply_chat_template(
+            messages_template, add_generation_prompt=True, return_dict=True, return_tensors="pt"
         )
 
-        response = self.__generate_response(input_ids)
+        response = self.__generate_response(input_dict)
         response = self.__extract_model_response(response)
         return response
 
-    def __generate_response(self, input_ids: torch.Tensor) -> str:
+    def __generate_response(self, input_dict: dict) -> str:
         with torch.no_grad():
-            input_ids = input_ids.to(self.device)
+            input_ids = input_dict['input_ids'].to(self.device)
+            attn_mask = input_dict['attention_mask'].to(self.device)
             generated_ids = self.model.generate(
-                input_ids, max_new_tokens=1000, do_sample=True
+                input_ids, max_new_tokens=1000, do_sample=True, attention_mask=attn_mask, pad_token_id=self.tokenizer.pad_token_id
             )
             decoded = self.tokenizer.batch_decode(generated_ids)
             return decoded[0]
 
     def __extract_model_response(self, decoded: str) -> str:
-        beginning = "<|im_start|> assistant"
-        end = "<|im_end|>"
+        beginning = "[/INST]"
+        end = "<|end_of_text|>"
         return decoded.split(beginning)[-1].split(end)[0].strip()
     
 class DummyExtractor(Extractor):
