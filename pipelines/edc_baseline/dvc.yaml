@@ -93,6 +93,7 @@ stages:
     - data/edc_baseline/refs.xml
     - data/edc_baseline/cands.xml
     - src/evaluation/Evaluation_script_json.py
+    - src/extractors/openai.py
     outs:
     - data/edc_baseline/evaluation_results.json
     - data/edc_baseline/evaluation_results_per_line.json
