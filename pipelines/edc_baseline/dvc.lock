@@ -106,8 +106,8 @@ stages:
       size: 1750
   extract_relations:
     cmd: papermill --log-output --stdout-file notebooks/extract_relations/local_papermill_logs.txt
-      --log-level INFO --parameters DEBUG 1 --parameters model_name o3-mini notebooks/extract_relations/local_extract_relations.ipynb
-      notebooks/extract_relations/local_extract_relations_output.ipynb
+      --log-level INFO --parameters DEBUG 0 --parameters model_name speakleash/Bielik-11B-v2.2-Instruct
+      notebooks/extract_relations/local_extract_relations.ipynb notebooks/extract_relations/local_extract_relations_output.ipynb
     deps:
     - path: data/edc_baseline/dataset.txt
       hash: md5
@@ -127,8 +127,8 @@ stages:
       size: 4885
     params:
       pipelines/edc_baseline/params.yaml:
-        debug_llm: 1
-        llm: o3-mini
+        debug_llm: 0
+        llm: speakleash/Bielik-11B-v2.2-Instruct
     outs:
     - path: data/edc_baseline/errors.json
       hash: md5
@@ -136,25 +136,25 @@ stages:
       size: 18
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 60d79c4b1fd77eec9a825db1c383e3b2
-      size: 638
+      md5: 2e0650ab6d13565a828b4cba1fbd6e9d
+      size: 1129296
     - path: notebooks/extract_relations/local_extract_relations_output.ipynb
       hash: md5
-      md5: 9b28f29604b88402c68946111713ac29
-      size: 19065
+      md5: 11383c0f80ea1177d56983c8f1b03154
+      size: 12379765
     - path: notebooks/extract_relations/local_papermill_logs.txt
       hash: md5
-      md5: 64b6990caf03608805741047d962ec31
-      size: 65
+      md5: 1dc1ca2e1635e2f2383d9d08345c88cb
+      size: 3460940
   prepare_for_evaluation:
     cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
       --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
-      --reference_txt data/edc_baseline/reference.txt --DEBUG 1
+      --reference_txt data/edc_baseline/reference.txt --DEBUG 0
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 60d79c4b1fd77eec9a825db1c383e3b2
-      size: 638
+      md5: 2e0650ab6d13565a828b4cba1fbd6e9d
+      size: 1129296
     - path: data/edc_baseline/reference.txt
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
@@ -165,28 +165,28 @@ stages:
       size: 3848
     params:
       pipelines/edc_baseline/params.yaml:
-        debug_llm: 1
+        debug_llm: 0
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 0b8abe7a59cf3a46e8283f41db219e14
-      size: 1576
+      md5: bf148393f80969bc283b688740003a57
+      size: 2481677
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: f16445dfdb4c4a37a74f4b11367e3bf7
-      size: 2859
+      md5: c04877b6eb00815016a9996a80a13116
+      size: 4808500
   evaluate:
     cmd: python src/evaluation/Evaluation_script_json.py data/edc_baseline/refs.xml
       data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json data/edc_baseline/evaluation_results_per_line.json
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 0b8abe7a59cf3a46e8283f41db219e14
-      size: 1576
+      md5: bf148393f80969bc283b688740003a57
+      size: 2481677
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: f16445dfdb4c4a37a74f4b11367e3bf7
-      size: 2859
+      md5: c04877b6eb00815016a9996a80a13116
+      size: 4808500
     - path: src/evaluation/Evaluation_script_json.py
       hash: md5
       md5: 70d14b034550e03caf153aa0866fa9a7
@@ -198,53 +198,53 @@ stages:
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 318237b3b1727fbd08509f04b5951bdd
-      size: 2893
+      md5: a200024f5151412c538816e59d650cbb
+      size: 3757
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 439c9868b826c7b1afae105080dcb0b3
-      size: 19560
+      md5: f441dd43252a97dbf75d7c2a271bfb04
+      size: 33445294
   generate_report:
-    cmd: papermill --parameters model_name o3-mini notebooks/reports/report_vanilla_relation_extraction.ipynb
+    cmd: papermill --parameters model_name speakleash/Bielik-11B-v2.2-Instruct notebooks/reports/report_vanilla_relation_extraction.ipynb
       notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 0b8abe7a59cf3a46e8283f41db219e14
-      size: 1576
+      md5: bf148393f80969bc283b688740003a57
+      size: 2481677
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 318237b3b1727fbd08509f04b5951bdd
-      size: 2893
+      md5: a200024f5151412c538816e59d650cbb
+      size: 3757
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 439c9868b826c7b1afae105080dcb0b3
-      size: 19560
+      md5: f441dd43252a97dbf75d7c2a271bfb04
+      size: 33445294
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: f16445dfdb4c4a37a74f4b11367e3bf7
-      size: 2859
+      md5: c04877b6eb00815016a9996a80a13116
+      size: 4808500
     - path: notebooks/reports/report_vanilla_relation_extraction.ipynb
       hash: md5
       md5: 4d731531ae35dc1e32f276204ec5c9af
       size: 76050
     params:
       pipelines/edc_baseline/params.yaml:
-        llm: o3-mini
+        llm: speakleash/Bielik-11B-v2.2-Instruct
     outs:
     - path: data/edc_baseline/metrics.json
       hash: md5
-      md5: a4bb34f4a1f02b239412e9376ad64284
-      size: 241
+      md5: aae85a06350db0a4e7d262ea5a1adf8c
+      size: 309
     - path: data/edc_baseline/report_total_f1.png
       hash: md5
-      md5: 1fceb5803aa293c34f4a44f4230b194f
-      size: 17865
+      md5: f7122738920416283215d78982fd0014
+      size: 21890
     - path: data/edc_baseline/report_total_found.png
       hash: md5
-      md5: 555d246f18d5d98a3976142808212c82
-      size: 23580
+      md5: 9501922f44ca8738b79cb5076ca5556c
+      size: 28089
     - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
       hash: md5
-      md5: 31b788e2c801900264a2803c459119d8
-      size: 83560
+      md5: 56b89fd1c2658869dff9b537eff8eb86
+      size: 96054
