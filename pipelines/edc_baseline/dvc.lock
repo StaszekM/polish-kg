@@ -125,10 +125,6 @@ stages:
       hash: md5
       md5: 3d9c0887a620e9a11b321e399f361a21
       size: 5796
-    - path: src/extractors/openai.py
-      hash: md5
-      md5: 0cc1e6920394af0acc45ab3cad29c444
-      size: 6873
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 1
