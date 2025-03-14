@@ -1,0 +1,16 @@
+services:
+  python:
+    build:
+      context: .
+      args:
+        USER_ID: ${USER_ID}
+    volumes:
+      - .:/app:rw
+    # uncomment the following lines to enable GPU support
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
