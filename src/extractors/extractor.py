@@ -1,7 +1,8 @@
+# type: ignore
 from abc import ABC, abstractmethod
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
 
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 class Extractor(ABC):
