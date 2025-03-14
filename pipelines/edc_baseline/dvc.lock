@@ -106,7 +106,7 @@ stages:
       size: 1750
   extract_relations:
     cmd: papermill --log-output --stdout-file notebooks/extract_relations/local_papermill_logs.txt
-      --log-level INFO --parameters DEBUG 1 --parameters model_name o3-mini notebooks/extract_relations/local_extract_relations.ipynb
+      --log-level INFO --parameters DEBUG 1 --parameters model_name gpt-4o-mini notebooks/extract_relations/local_extract_relations.ipynb
       notebooks/extract_relations/local_extract_relations_output.ipynb
     deps:
     - path: data/edc_baseline/dataset.txt
@@ -119,16 +119,20 @@ stages:
       size: 1569
     - path: notebooks/extract_relations/local_extract_relations.ipynb
       hash: md5
-      md5: eb756ef92674e16358eea107a0bad66f
-      size: 9592
+      md5: 51c69c65da1a59c238b6b5552f9eb79e
+      size: 6221
     - path: src/extractors/extractor.py
       hash: md5
-      md5: 24402e914d90ab4de931a0bf2d6937b4
-      size: 4900
+      md5: 3d9c0887a620e9a11b321e399f361a21
+      size: 5796
+    - path: src/extractors/openai.py
+      hash: md5
+      md5: 0cc1e6920394af0acc45ab3cad29c444
+      size: 6873
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 1
-        llm: o3-mini
+        llm: gpt-4o-mini
     outs:
     - path: data/edc_baseline/errors.json
       hash: md5
@@ -136,16 +140,16 @@ stages:
       size: 18
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 29982b40705933427bda2c4e7fdaa460
-      size: 2945
+      md5: a40f1769e485b27d4cdb7f5bb2bc9835
+      size: 1128
     - path: notebooks/extract_relations/local_extract_relations_output.ipynb
       hash: md5
-      md5: b60eb4e804d54037e0f6f0da56d2ed1e
-      size: 26132
+      md5: 768b096e9a866b77c8ef6dcb8db7279e
+      size: 26140
     - path: notebooks/extract_relations/local_papermill_logs.txt
       hash: md5
-      md5: 87d2807ae956aef353cdff64e36991bc
-      size: 18
+      md5: cec1d7682eac81308c161ed08f8de230
+      size: 3944
   prepare_for_evaluation:
     cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
       --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
@@ -153,8 +157,8 @@ stages:
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 29982b40705933427bda2c4e7fdaa460
-      size: 2945
+      md5: a40f1769e485b27d4cdb7f5bb2bc9835
+      size: 1128
     - path: data/edc_baseline/reference.txt
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
@@ -169,82 +173,82 @@ stages:
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 0043f966789eecdde6b7197214a29165
-      size: 7443
+      md5: 2aa984b945f804810f37e69f1245957e
+      size: 2852
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: 82de07801bff343f0b05523b85334824
-      size: 13807
+      md5: 49d3ad40f8ed9ed64df3a02056c5ad8f
+      size: 5555
   evaluate:
     cmd: python src/evaluation/Evaluation_script_json.py data/edc_baseline/refs.xml
       data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json data/edc_baseline/evaluation_results_per_line.json
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 0043f966789eecdde6b7197214a29165
-      size: 7443
+      md5: 2aa984b945f804810f37e69f1245957e
+      size: 2852
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: 82de07801bff343f0b05523b85334824
-      size: 13807
+      md5: 49d3ad40f8ed9ed64df3a02056c5ad8f
+      size: 5555
     - path: src/evaluation/Evaluation_script_json.py
       hash: md5
       md5: 70d14b034550e03caf153aa0866fa9a7
       size: 50668
     - path: src/extractors/openai.py
       hash: md5
-      md5: 2d0e6ca5c08b1154614170f8e3b66dfc
-      size: 3910
+      md5: 0cc1e6920394af0acc45ab3cad29c444
+      size: 6873
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: deb3d21751e87bb8f698d99f33521c76
-      size: 3273
+      md5: 8ce55d0cbda509c1152237b558e25257
+      size: 3133
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: f31ecf5060a4daee67f21aecf34b992c
-      size: 98389
+      md5: 2d9c3a3cc7855194583ba95e5971c7d9
+      size: 38974
   generate_report:
-    cmd: papermill --parameters model_name o3-mini notebooks/reports/report_vanilla_relation_extraction.ipynb
+    cmd: papermill --parameters model_name gpt-4o-mini notebooks/reports/report_vanilla_relation_extraction.ipynb
       notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 0043f966789eecdde6b7197214a29165
-      size: 7443
+      md5: 2aa984b945f804810f37e69f1245957e
+      size: 2852
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: deb3d21751e87bb8f698d99f33521c76
-      size: 3273
+      md5: 8ce55d0cbda509c1152237b558e25257
+      size: 3133
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: f31ecf5060a4daee67f21aecf34b992c
-      size: 98389
+      md5: 2d9c3a3cc7855194583ba95e5971c7d9
+      size: 38974
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: 82de07801bff343f0b05523b85334824
-      size: 13807
+      md5: 49d3ad40f8ed9ed64df3a02056c5ad8f
+      size: 5555
     - path: notebooks/reports/report_vanilla_relation_extraction.ipynb
       hash: md5
       md5: 4d731531ae35dc1e32f276204ec5c9af
       size: 76050
     params:
       pipelines/edc_baseline/params.yaml:
-        llm: o3-mini
+        llm: gpt-4o-mini
     outs:
     - path: data/edc_baseline/metrics.json
       hash: md5
-      md5: f6111aa1612883f16388c29d7fc0d49d
-      size: 256
+      md5: c204da121d598444654114bbb7fbf450
+      size: 243
     - path: data/edc_baseline/report_total_f1.png
       hash: md5
-      md5: cdeb4a2abec559a2e2f93cd7ff00c83c
-      size: 18285
+      md5: f020f93916f764aba7794abc38e05f33
+      size: 18581
     - path: data/edc_baseline/report_total_found.png
       hash: md5
-      md5: 9c23637652b135dd34bcc0c545a1bca5
-      size: 24632
+      md5: 39784560b354fe0de18a819d5901c24c
+      size: 24455
     - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
       hash: md5
-      md5: e022b3c9f4012716e84546d527a8b8b0
-      size: 131996
+      md5: 2c20a44e97a4ec2371581d0b38ff2833
+      size: 96986

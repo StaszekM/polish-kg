@@ -1,12 +1,16 @@
 # type: ignore
+import os
 from abc import ABC, abstractmethod
 
 import torch
+from dotenv import load_dotenv
+from openai import OpenAI
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+load_dotenv()
 
 class Extractor(ABC):
-    def __init__(self):
+    def __init__(self, device=str):
         super().__init__()
 
     @abstractmethod
@@ -128,6 +132,35 @@ class PllumExtractor(Extractor):
         beginning = "[/INST]"
         end = "<|end_of_text|>"
         return decoded.split(beginning)[-1].split(end)[0].strip()
+    
+class OpenAISequentialExtractor(Extractor):
+    def __init__(self, device):
+        super().__init__()
+
+        self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+    def get_memory_footprint(self) -> int:
+        return 0
+
+    def create_messages_template(
+        self, system_content: str, prompt_content: str
+    ) -> list:
+        return [
+            {
+                "role": "system",
+                "content": system_content,
+            },
+            {"role": "user", "content": prompt_content},
+        ]
+
+    def get_response_text(self, messages_template: list) -> str:
+        completion = self.client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=messages_template
+        )
+
+        return completion.choices[0].message.content or ''
+ 
     
 class DummyExtractor(Extractor):
     def __init__(self, device: str):
