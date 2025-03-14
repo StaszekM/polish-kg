@@ -191,10 +191,6 @@ stages:
       hash: md5
       md5: 70d14b034550e03caf153aa0866fa9a7
       size: 50668
-    - path: src/extractors/openai.py
-      hash: md5
-      md5: 0cc1e6920394af0acc45ab3cad29c444
-      size: 6873
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
