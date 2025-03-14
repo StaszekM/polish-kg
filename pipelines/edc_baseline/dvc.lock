@@ -119,8 +119,8 @@ stages:
       size: 1569
     - path: notebooks/extract_relations/local_extract_relations.ipynb
       hash: md5
-      md5: 0884e3d41ddac5ff378488ad2a18f477
-      size: 9555
+      md5: eb756ef92674e16358eea107a0bad66f
+      size: 9592
     - path: src/extractors/extractor.py
       hash: md5
       md5: 24402e914d90ab4de931a0bf2d6937b4
