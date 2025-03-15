@@ -106,7 +106,7 @@ stages:
       size: 1750
   extract_relations:
     cmd: papermill --log-output --stdout-file notebooks/extract_relations/local_papermill_logs.txt
-      --log-level INFO --parameters DEBUG 1 --parameters model_name gpt-4o-mini notebooks/extract_relations/local_extract_relations.ipynb
+      --log-level INFO --parameters DEBUG 0 --parameters model_name gpt-4o-mini notebooks/extract_relations/local_extract_relations.ipynb
       notebooks/extract_relations/local_extract_relations_output.ipynb
     deps:
     - path: data/edc_baseline/dataset.txt
@@ -127,7 +127,7 @@ stages:
       size: 5796
     params:
       pipelines/edc_baseline/params.yaml:
-        debug_llm: 1
+        debug_llm: 0
         llm: gpt-4o-mini
     outs:
     - path: data/edc_baseline/errors.json
@@ -136,25 +136,25 @@ stages:
       size: 18
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: a40f1769e485b27d4cdb7f5bb2bc9835
-      size: 1128
+      md5: dc4a52aa747a386c073009baf5962c65
+      size: 1013581
     - path: notebooks/extract_relations/local_extract_relations_output.ipynb
       hash: md5
-      md5: 768b096e9a866b77c8ef6dcb8db7279e
-      size: 26140
+      md5: 56833c5370863baecbc744c4722ae0a2
+      size: 13448837
     - path: notebooks/extract_relations/local_papermill_logs.txt
       hash: md5
-      md5: cec1d7682eac81308c161ed08f8de230
-      size: 3944
+      md5: 7c23f482dacb5a6ea65bd9d3851bb788
+      size: 3348564
   prepare_for_evaluation:
     cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
       --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
-      --reference_txt data/edc_baseline/reference.txt --DEBUG 1
+      --reference_txt data/edc_baseline/reference.txt --DEBUG 0
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: a40f1769e485b27d4cdb7f5bb2bc9835
-      size: 1128
+      md5: dc4a52aa747a386c073009baf5962c65
+      size: 1013581
     - path: data/edc_baseline/reference.txt
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
@@ -165,28 +165,28 @@ stages:
       size: 3848
     params:
       pipelines/edc_baseline/params.yaml:
-        debug_llm: 1
+        debug_llm: 0
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 2aa984b945f804810f37e69f1245957e
-      size: 2852
+      md5: 5c8a2616757cfe19394f030dd89d5dfb
+      size: 2568303
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: 49d3ad40f8ed9ed64df3a02056c5ad8f
-      size: 5555
+      md5: c04877b6eb00815016a9996a80a13116
+      size: 4808500
   evaluate:
     cmd: python src/evaluation/Evaluation_script_json.py data/edc_baseline/refs.xml
       data/edc_baseline/cands.xml data/edc_baseline/evaluation_results.json data/edc_baseline/evaluation_results_per_line.json
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 2aa984b945f804810f37e69f1245957e
-      size: 2852
+      md5: 5c8a2616757cfe19394f030dd89d5dfb
+      size: 2568303
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: 49d3ad40f8ed9ed64df3a02056c5ad8f
-      size: 5555
+      md5: c04877b6eb00815016a9996a80a13116
+      size: 4808500
     - path: src/evaluation/Evaluation_script_json.py
       hash: md5
       md5: 70d14b034550e03caf153aa0866fa9a7
@@ -194,32 +194,32 @@ stages:
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 8ce55d0cbda509c1152237b558e25257
-      size: 3133
+      md5: a4e17968eb020557c7daa5cc25c91161
+      size: 3750
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 2d9c3a3cc7855194583ba95e5971c7d9
-      size: 38974
+      md5: ad2992eee59db789dd3d7543fbe926d0
+      size: 33468760
   generate_report:
     cmd: papermill --parameters model_name gpt-4o-mini notebooks/reports/report_vanilla_relation_extraction.ipynb
       notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 2aa984b945f804810f37e69f1245957e
-      size: 2852
+      md5: 5c8a2616757cfe19394f030dd89d5dfb
+      size: 2568303
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 8ce55d0cbda509c1152237b558e25257
-      size: 3133
+      md5: a4e17968eb020557c7daa5cc25c91161
+      size: 3750
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 2d9c3a3cc7855194583ba95e5971c7d9
-      size: 38974
+      md5: ad2992eee59db789dd3d7543fbe926d0
+      size: 33468760
     - path: data/edc_baseline/refs.xml
       hash: md5
-      md5: 49d3ad40f8ed9ed64df3a02056c5ad8f
-      size: 5555
+      md5: c04877b6eb00815016a9996a80a13116
+      size: 4808500
     - path: notebooks/reports/report_vanilla_relation_extraction.ipynb
       hash: md5
       md5: 4d731531ae35dc1e32f276204ec5c9af
@@ -230,17 +230,17 @@ stages:
     outs:
     - path: data/edc_baseline/metrics.json
       hash: md5
-      md5: c204da121d598444654114bbb7fbf450
-      size: 243
+      md5: a3f1005fdf47bf9e048c75838badbded
+      size: 309
     - path: data/edc_baseline/report_total_f1.png
       hash: md5
-      md5: f020f93916f764aba7794abc38e05f33
-      size: 18581
+      md5: 01b6b3a5a2334bd35d8b0b3a68c9781b
+      size: 18725
     - path: data/edc_baseline/report_total_found.png
       hash: md5
-      md5: 39784560b354fe0de18a819d5901c24c
-      size: 24455
+      md5: e81c70174f92bfff072cad95b5e3d40b
+      size: 25237
     - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
       hash: md5
-      md5: 2c20a44e97a4ec2371581d0b38ff2833
-      size: 96986
+      md5: 9367aa736d72a20455036e745f524ef5
+      size: 87993
