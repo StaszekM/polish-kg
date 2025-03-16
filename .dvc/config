@@ -5,3 +5,5 @@
     url = my_url
     gdrive_client_id = my_client_id
     gdrive_client_secret = my_client_secret
+    gdrive_use_service_account = true
+    gdrive_service_account_json_file_path = ../gdrive-credentials.json
