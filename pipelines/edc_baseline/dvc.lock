@@ -106,8 +106,8 @@ stages:
       size: 1750
   extract_relations:
     cmd: papermill --log-output --stdout-file notebooks/extract_relations/local_papermill_logs.txt
-      --log-level INFO --parameters DEBUG 0 --parameters model_name CYFRAGOVPL/Llama-PLLuM-8B-instruct
-      notebooks/extract_relations/local_extract_relations.ipynb notebooks/extract_relations/local_extract_relations_output.ipynb
+      --log-level INFO --parameters DEBUG 0 --parameters model_name gpt-4o-mini notebooks/extract_relations/local_extract_relations.ipynb
+      notebooks/extract_relations/local_extract_relations_output.ipynb
     deps:
     - path: data/edc_baseline/dataset.txt
       hash: md5
@@ -128,7 +128,7 @@ stages:
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 0
-        llm: CYFRAGOVPL/Llama-PLLuM-8B-instruct
+        llm: gpt-4o-mini
     outs:
     - path: data/edc_baseline/errors.json
       hash: md5
@@ -136,16 +136,16 @@ stages:
       size: 18
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: faf8bd6ef2b8fa5b2ed74827c767d709
-      size: 1102110
+      md5: dc4a52aa747a386c073009baf5962c65
+      size: 1013581
     - path: notebooks/extract_relations/local_extract_relations_output.ipynb
       hash: md5
-      md5: c5a880e66beb0295b10abbc9a5962653
-      size: 10903488
+      md5: 56833c5370863baecbc744c4722ae0a2
+      size: 13448837
     - path: notebooks/extract_relations/local_papermill_logs.txt
       hash: md5
-      md5: 75fdd07d455d8a045c306d4913be9eed
-      size: 3424686
+      md5: 7c23f482dacb5a6ea65bd9d3851bb788
+      size: 3348564
   prepare_for_evaluation:
     cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
       --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
@@ -153,24 +153,28 @@ stages:
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: faf8bd6ef2b8fa5b2ed74827c767d709
-      size: 1102110
+      md5: dc4a52aa747a386c073009baf5962c65
+      size: 1013581
     - path: data/edc_baseline/reference.txt
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
       size: 804268
     - path: src/evaluation/parsing.py
       hash: md5
-      md5: 7da07fa7a533a753baad0b3b91de512e
-      size: 3848
+      md5: 2c88dfc1ce2cacd9646f81275612600c
+      size: 3421
+    - path: src/evaluation/regex_matching.py
+      hash: md5
+      md5: b5c65fd8049ee7d750713e92b7076f74
+      size: 3646
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 0
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 5e9764b0da1959a65dc2c735c8ec9af3
-      size: 2151035
+      md5: 8dabd4a12f3198a5bd76cc160f7c8d9e
+      size: 2568446
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: c04877b6eb00815016a9996a80a13116
@@ -181,8 +185,8 @@ stages:
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 5e9764b0da1959a65dc2c735c8ec9af3
-      size: 2151035
+      md5: 8dabd4a12f3198a5bd76cc160f7c8d9e
+      size: 2568446
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: c04877b6eb00815016a9996a80a13116
@@ -194,28 +198,28 @@ stages:
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 39452a9f02ab47b89a774b2f6be8520f
-      size: 3756
+      md5: 253d71c1e54f42503afed5602753cd1c
+      size: 3747
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 9fb35407db5904c27ee992516132f25c
-      size: 32787254
+      md5: eb30acbc0496fecc83b6049ccb6d4ece
+      size: 33469170
   generate_report:
-    cmd: papermill --parameters model_name CYFRAGOVPL/Llama-PLLuM-8B-instruct notebooks/reports/report_vanilla_relation_extraction.ipynb
+    cmd: papermill --parameters model_name gpt-4o-mini notebooks/reports/report_vanilla_relation_extraction.ipynb
       notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 5e9764b0da1959a65dc2c735c8ec9af3
-      size: 2151035
+      md5: 8dabd4a12f3198a5bd76cc160f7c8d9e
+      size: 2568446
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 39452a9f02ab47b89a774b2f6be8520f
-      size: 3756
+      md5: 253d71c1e54f42503afed5602753cd1c
+      size: 3747
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 9fb35407db5904c27ee992516132f25c
-      size: 32787254
+      md5: eb30acbc0496fecc83b6049ccb6d4ece
+      size: 33469170
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: c04877b6eb00815016a9996a80a13116
@@ -226,21 +230,21 @@ stages:
       size: 76050
     params:
       pipelines/edc_baseline/params.yaml:
-        llm: CYFRAGOVPL/Llama-PLLuM-8B-instruct
+        llm: gpt-4o-mini
     outs:
     - path: data/edc_baseline/metrics.json
       hash: md5
-      md5: f1f5cd88054f4972dbccf9f46352eee2
-      size: 311
+      md5: 5a5be30657d47b7cda1f1ccddcc408d2
+      size: 309
     - path: data/edc_baseline/report_total_f1.png
       hash: md5
-      md5: 6a0fb1ba3ae856c423a030b702e7898f
-      size: 23181
+      md5: 46ec2d049ebbbb06ae73be19e37c9542
+      size: 18770
     - path: data/edc_baseline/report_total_found.png
       hash: md5
-      md5: 65f2cf89060b7cf999bc27f804d11fca
-      size: 28875
+      md5: db3102c72dbdde3dad1d613a00337110
+      size: 25166
     - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
       hash: md5
-      md5: 3762b41a70c829b4f91f7eb1cce79ed0
-      size: 98374
+      md5: a7dd5393c2eb2eea3314e881ca8c6182
+      size: 87972
