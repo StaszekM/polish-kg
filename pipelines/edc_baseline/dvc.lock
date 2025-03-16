@@ -106,8 +106,8 @@ stages:
       size: 1750
   extract_relations:
     cmd: papermill --log-output --stdout-file notebooks/extract_relations/local_papermill_logs.txt
-      --log-level INFO --parameters DEBUG 0 --parameters model_name gpt-4o-mini notebooks/extract_relations/local_extract_relations.ipynb
-      notebooks/extract_relations/local_extract_relations_output.ipynb
+      --log-level INFO --parameters DEBUG 0 --parameters model_name speakleash/Bielik-11B-v2.2-Instruct
+      notebooks/extract_relations/local_extract_relations.ipynb notebooks/extract_relations/local_extract_relations_output.ipynb
     deps:
     - path: data/edc_baseline/dataset.txt
       hash: md5
@@ -128,7 +128,7 @@ stages:
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 0
-        llm: gpt-4o-mini
+        llm: speakleash/Bielik-11B-v2.2-Instruct
     outs:
     - path: data/edc_baseline/errors.json
       hash: md5
@@ -136,16 +136,16 @@ stages:
       size: 18
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: dc4a52aa747a386c073009baf5962c65
-      size: 1013581
+      md5: 2e0650ab6d13565a828b4cba1fbd6e9d
+      size: 1129296
     - path: notebooks/extract_relations/local_extract_relations_output.ipynb
       hash: md5
-      md5: 56833c5370863baecbc744c4722ae0a2
-      size: 13448837
+      md5: 11383c0f80ea1177d56983c8f1b03154
+      size: 12379765
     - path: notebooks/extract_relations/local_papermill_logs.txt
       hash: md5
-      md5: 7c23f482dacb5a6ea65bd9d3851bb788
-      size: 3348564
+      md5: 1dc1ca2e1635e2f2383d9d08345c88cb
+      size: 3460940
   prepare_for_evaluation:
     cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
       --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
@@ -153,8 +153,8 @@ stages:
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: dc4a52aa747a386c073009baf5962c65
-      size: 1013581
+      md5: 2e0650ab6d13565a828b4cba1fbd6e9d
+      size: 1129296
     - path: data/edc_baseline/reference.txt
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
@@ -169,8 +169,8 @@ stages:
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 5c8a2616757cfe19394f030dd89d5dfb
-      size: 2568303
+      md5: bf148393f80969bc283b688740003a57
+      size: 2481677
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: c04877b6eb00815016a9996a80a13116
@@ -181,8 +181,8 @@ stages:
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 5c8a2616757cfe19394f030dd89d5dfb
-      size: 2568303
+      md5: bf148393f80969bc283b688740003a57
+      size: 2481677
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: c04877b6eb00815016a9996a80a13116
@@ -194,28 +194,28 @@ stages:
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: a4e17968eb020557c7daa5cc25c91161
-      size: 3750
+      md5: a200024f5151412c538816e59d650cbb
+      size: 3757
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: ad2992eee59db789dd3d7543fbe926d0
-      size: 33468760
+      md5: f441dd43252a97dbf75d7c2a271bfb04
+      size: 33445294
   generate_report:
-    cmd: papermill --parameters model_name gpt-4o-mini notebooks/reports/report_vanilla_relation_extraction.ipynb
+    cmd: papermill --parameters model_name speakleash/Bielik-11B-v2.2-Instruct notebooks/reports/report_vanilla_relation_extraction.ipynb
       notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 5c8a2616757cfe19394f030dd89d5dfb
-      size: 2568303
+      md5: bf148393f80969bc283b688740003a57
+      size: 2481677
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: a4e17968eb020557c7daa5cc25c91161
-      size: 3750
+      md5: a200024f5151412c538816e59d650cbb
+      size: 3757
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: ad2992eee59db789dd3d7543fbe926d0
-      size: 33468760
+      md5: f441dd43252a97dbf75d7c2a271bfb04
+      size: 33445294
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: c04877b6eb00815016a9996a80a13116
@@ -226,21 +226,21 @@ stages:
       size: 76050
     params:
       pipelines/edc_baseline/params.yaml:
-        llm: gpt-4o-mini
+        llm: speakleash/Bielik-11B-v2.2-Instruct
     outs:
     - path: data/edc_baseline/metrics.json
       hash: md5
-      md5: a3f1005fdf47bf9e048c75838badbded
+      md5: aae85a06350db0a4e7d262ea5a1adf8c
       size: 309
     - path: data/edc_baseline/report_total_f1.png
       hash: md5
-      md5: 01b6b3a5a2334bd35d8b0b3a68c9781b
-      size: 18725
+      md5: f7122738920416283215d78982fd0014
+      size: 21890
     - path: data/edc_baseline/report_total_found.png
       hash: md5
-      md5: e81c70174f92bfff072cad95b5e3d40b
-      size: 25237
+      md5: 9501922f44ca8738b79cb5076ca5556c
+      size: 28089
     - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
       hash: md5
-      md5: 9367aa736d72a20455036e745f524ef5
-      size: 87993
+      md5: 56b89fd1c2658869dff9b537eff8eb86
+      size: 96054
