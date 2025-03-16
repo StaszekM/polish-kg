@@ -1,38 +1,15 @@
-import re
-import json
 import ast
-from typing import Union
-from xml.etree import ElementTree as ET
+import json
 from argparse import ArgumentParser
+from typing import Tuple, Union
+from xml.etree import ElementTree as ET
 
+from src.evaluation.regex_matching import parse_string
 from src.make_paths_relative_to_root import *
 
-single_or_double_bracket_regex = re.compile(r"^(\[\[[^\[\]]+\]\])|^(\[[^\[\]]+\])")
 
-
-def __parse_single_model_output(output) -> Union[list, None]:
-    triplet_string = getattr(
-        re.match(single_or_double_bracket_regex, output), "string", None
-    )
-
-    if triplet_string is None:
-        return None
-
-    try:
-        data = ast.literal_eval(triplet_string)
-    except:
-        return None
-
-    if not isinstance(data, list):
-        return None
-
-    if isinstance(data[0], list):
-        data = data[0]
-
-    if len(data) != 3:
-        return None
-
-    return list(map(str, data))
+def __parse_single_model_output(output) -> Union[Tuple[str, str, str], None]:
+    return parse_string(output)
 
 
 def __stringify_triple(triple_list: list):

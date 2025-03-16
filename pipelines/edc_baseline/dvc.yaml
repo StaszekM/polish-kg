@@ -83,6 +83,7 @@ stages:
     - data/edc_baseline/extracted_relations.json
     - data/edc_baseline/reference.txt
     - src/evaluation/parsing.py
+    - src/evaluation/regex_matching.py
     outs:
     - data/edc_baseline/refs.xml
     - data/edc_baseline/cands.xml
