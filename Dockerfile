@@ -1,4 +1,4 @@
-FROM python:3.8.18-slim-bookworm
+FROM python:3.9.21-slim-bookworm
 
 ARG USER_ID
 
@@ -6,7 +6,10 @@ RUN apt-get update && apt-get install -y \
     gcc \
     graphviz \
     graphviz-dev \
-    python3-lxml
+    python3-lxml \
+    python3-dev \
+    libxml2-dev \
+    libxslt-dev
 
 RUN useradd -m -u $USER_ID -s /bin/bash appuser
 

@@ -5,7 +5,7 @@ if [ -e ./env/pyvenv.cfg ]; then
     echo "Venv found"
 else
     echo "No virtualenv found, creating new one..."
-    python3.8 -m venv --copies env
+    python3.9 -m venv --copies env
 fi
 
 echo "Installing requirements..."
