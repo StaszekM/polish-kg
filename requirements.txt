@@ -32,3 +32,4 @@ langgraph==0.3.18
 pygit2==1.14.1
 langchain-anthropic==0.3.10
 langchain-community==0.3.20
+langchain-huggingface==0.1.2
