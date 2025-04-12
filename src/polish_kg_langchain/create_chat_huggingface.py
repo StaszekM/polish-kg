@@ -7,15 +7,21 @@ from transformers import (PreTrainedModel, PreTrainedTokenizer,
 from polish_kg_langchain.InstructionStripper import InstructionStripper
 
 
-def create_chat_huggingface(llm: PreTrainedModel, tokenizer: Union[PreTrainedTokenizer, PreTrainedTokenizerFast]) -> ChatHuggingFace:
+def create_chat_huggingface(llm: PreTrainedModel, tokenizer: Union[PreTrainedTokenizer, PreTrainedTokenizerFast], **kwargs) -> ChatHuggingFace:
+    
+    args = {
+        "model": llm,
+        "tokenizer": tokenizer,
+        "device": "cuda",
+        "max_new_tokens": 1000,
+        "do_sample": True,
+        "temperature": 0.8,
+    }
+    args.update(kwargs)
+    
     pipe = pipeline(
         "text-generation",
-        model=llm,
-        tokenizer=tokenizer,
-        device="cuda",
-        max_new_tokens=1000,
-        do_sample=True,
-        temperature=0.8,
+        **args,
     )
 
     langchain_pipe = HuggingFacePipeline(
