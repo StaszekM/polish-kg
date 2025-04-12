@@ -1,0 +1,5 @@
+outs:
+- md5: afe6cffd9466f4640a7f2c30ca2a2396
+  size: 394
+  hash: md5
+  path: prompt_validate_did_refuse_to_answer.txt

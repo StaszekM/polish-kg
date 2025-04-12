@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 import torch
 from dotenv import load_dotenv
 from openai import OpenAI
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, PreTrainedModel
 
 load_dotenv()
 
@@ -79,7 +79,7 @@ class BielikExtractor(Extractor):
         beginning = "<|im_start|> assistant"
         end = "<|im_end|>"
         return decoded.split(beginning)[-1].split(end)[0].strip()
-    
+
 class PllumExtractor(Extractor):
     def __init__(self, device: str):
         super().__init__()
@@ -87,7 +87,7 @@ class PllumExtractor(Extractor):
         self.tokenizer = AutoTokenizer.from_pretrained(
             "CYFRAGOVPL/Llama-PLLuM-8B-instruct"
         )
-        self.model = AutoModelForCausalLM.from_pretrained(
+        self.model: PreTrainedModel = AutoModelForCausalLM.from_pretrained(
             "CYFRAGOVPL/Llama-PLLuM-8B-instruct", torch_dtype=torch.float16
         )
         self.model.to(device)
@@ -132,7 +132,7 @@ class PllumExtractor(Extractor):
         beginning = "[/INST]"
         end = "<|end_of_text|>"
         return decoded.split(beginning)[-1].split(end)[0].strip()
-    
+
 class OpenAISequentialExtractor(Extractor):
     def __init__(self, device):
         super().__init__()
@@ -160,8 +160,8 @@ class OpenAISequentialExtractor(Extractor):
         )
 
         return completion.choices[0].message.content or ''
- 
-    
+
+
 class DummyExtractor(Extractor):
     def __init__(self, device: str):
         super().__init__()

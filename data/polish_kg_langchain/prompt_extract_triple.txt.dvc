@@ -1,0 +1,5 @@
+outs:
+- md5: d918f7072133c1a6b0c93aa2b2a708bf
+  size: 777
+  hash: md5
+  path: prompt_extract_triple.txt

@@ -1,86 +1,62 @@
+from collections.abc import Callable
 from typing import Literal
 
 from git import Optional
+from langchain_core.prompt_values import ChatPromptValue
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_huggingface import ChatHuggingFace
 from langgraph.types import Command
 
 from polish_kg_langchain import PolishKGRunnableConfig, State
+from utils.parse_prompt_file import parse_prompt_file
+from utils.validate_interpolation import validate_interpolation
 
 
-def validate_did_format_correctly(
-    state: State,
-    config: Optional[PolishKGRunnableConfig] = None,
-) -> Command[Literal["to_evaluation", "correct_triple"]]:
-    if config is None:
-        raise ValueError("Config must be provided")
-    chat: ChatHuggingFace = config["configurable"].get("base_llm")
+def create_node_validate_did_format_correctly(
+    prompt_location: str,
+) -> Callable[..., Command]:
+    def validate_did_format_correctly(
+        state: State,
+        config: Optional[PolishKGRunnableConfig] = None,
+    ) -> Command[Literal["to_evaluation", "correct_triple"]]:
+        if config is None:
+            raise ValueError("Config must be provided")
 
-    # this prompt needs improvement and possibly splitting into checking and correcting
-    response = state["messages"][-1].content
-    template = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                """Oceń, czy podany tekst jest dokładnie w formacie [[Obiekt1, Relacja, Obiekt2]]. Jeśli tekst jest w poprawnym formacie, odpowiedz 'Tak'. Jeśli nie jest, odpowiedz 'Nie'. Nie podawaj żadnych innych informacji ani wyjaśnień.
-Tekst jest w poprawnym formacie, jeśli:
-1. Zawiera dokładnie jedną trójkę Obiekt1, Relacja, Obiekt2.
-2. Tekst zaczyna się podwójnym nawiasem kwadratowym '[['.
-3. Tekst kończy się podwójnym nawiasem kwadratowym ']]'.
-4. Obiekt1, Relacja i Obiekt2 są oddzielone przecinkami ','.
-5. Obiekt1, Relacja i Obiekt2 nie są otoczone pojedynczymi ani podwójnymi cudzysłowami.
+        response = state["messages"][-1].content
+        parsed = parse_prompt_file(prompt_location)
 
-Przykłady niepoprawnych formatów wraz z odpowiedziami:
-Tekst: [Obiekt1, Relacja, Obiekt2]
-Odpowiedź: Nie
-
-Tekst: [[Obiekt1, Relacja, Obiekt2]
-Odpowiedź: Nie
-
-Tekst: ['Obiekt1', 'Relacja', 'Obiekt2']
-Odpowiedź: Nie
-
-Tekst: [(Obiekt1, Relacja, Obiekt2)]
-Odpowiedź: Nie
-
-Tekst: ["Obiekt1", "Relacja", "Obiekt2"]
-Odpowiedź: Nie
-
-Przykłady poprawnych formatów:
-Tekst: [[Obiekt1, Relacja, Obiekt2]]
-Odpowiedź: Tak""",
-            ),
-            ("user", "Tekst: {response}\nOdpowiedź:"),
-        ]
-    )
-
-    prompt = template.invoke(
-        {
+        template = ChatPromptTemplate.from_messages(parsed)
+        invocation = {
             "response": response,
         }
-    )
+        validate_interpolation(str(parsed), invocation)
 
-    result = chat.invoke(prompt)
-    result_cleaned = str(result.content)
+        prompt: ChatPromptValue = template.invoke(invocation)  # type:ignore
 
-    has_correct_format: bool
-    goto: str
-    if result_cleaned.lower().startswith("tak"):
-        has_correct_format = True
-        goto = "to_evaluation"
-    elif result_cleaned.lower().startswith("nie"):
-        has_correct_format = False
-        goto = "correct_triple"
-    else:
-        raise ValueError(
-            f"Unexpected response from the model: {result_cleaned}. Expected 'Tak' or 'Nie'."
-            "validate_did_format_correctly"
+        chat: ChatHuggingFace = config["configurable"].get("base_llm")
+        result = chat.invoke(prompt)
+        result_cleaned = str(result.content)
+
+        has_correct_format: bool
+        goto: str
+        if result_cleaned.lower().startswith("tak"):
+            has_correct_format = True
+            goto = "to_evaluation"
+        elif result_cleaned.lower().startswith("nie"):
+            has_correct_format = False
+            goto = "correct_triple"
+        else:
+            raise ValueError(
+                f"Unexpected response from the model: {result_cleaned}. Expected 'Tak' or 'Nie'."
+                "validate_did_format_correctly"
+            )
+
+        return Command(
+            update={
+                "format_checker_messages": [*prompt.messages, result],  # type:ignore
+                "has_correct_format": has_correct_format,
+            },
+            goto=goto,
         )
 
-    return Command(
-        update={
-            "format_checker_messages": [*prompt.messages, result], # type:ignore
-            "has_correct_format": has_correct_format,
-        },
-        goto=goto,
-    )
+    return validate_did_format_correctly
