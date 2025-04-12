@@ -24,7 +24,7 @@ def create_node_validate_did_refuse_to_answer(
         response = state["messages"][-1].content
         parsed = parse_prompt_file(prompt_location)
 
-        chat: ChatHuggingFace = config["configurable"].get("base_llm")
+        chat: ChatHuggingFace = config["configurable"].get("base_llm_zero_temp")
 
         template = ChatPromptTemplate.from_messages(parsed)
         invocation = {

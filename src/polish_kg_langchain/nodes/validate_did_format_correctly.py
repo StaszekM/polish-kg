@@ -33,7 +33,7 @@ def create_node_validate_did_format_correctly(
 
         prompt: ChatPromptValue = template.invoke(invocation)  # type:ignore
 
-        chat: ChatHuggingFace = config["configurable"].get("base_llm")
+        chat: ChatHuggingFace = config["configurable"].get("base_llm_zero_temp")
         result = chat.invoke(prompt)
         result_cleaned = str(result.content)
 
