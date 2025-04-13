@@ -1,5 +1,5 @@
 outs:
-- md5: 35067aac64b4c5553daad595afeedaaf
-  size: 1080
+- md5: a8889b444f5bb2b717801f878dd1db22
+  size: 1079
   hash: md5
   path: prompt_validate_did_format_correctly.txt

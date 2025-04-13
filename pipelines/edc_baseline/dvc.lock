@@ -123,8 +123,8 @@ stages:
       size: 6221
     - path: src/extractors/extractor.py
       hash: md5
-      md5: 3d9c0887a620e9a11b321e399f361a21
-      size: 5796
+      md5: e4c6091fa684023f6442d7e5825c8688
+      size: 5818
     params:
       pipelines/edc_baseline/params.yaml:
         debug_llm: 0
