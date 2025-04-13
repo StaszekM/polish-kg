@@ -5,7 +5,7 @@ dvc_render~=1.0.1
 dvc_task~=0.4.0
 scmrepo~=2.0.4
 dvc-gdrive~=3.0.1
-pygraphviz~=1.11
+pygraphviz
 wandb==0.17.3
 python-dotenv==1.0.1
 dvclive>=3.0
@@ -23,7 +23,7 @@ torch==2.3.1
 nltk==3.9.1
 nervaluate==0.1.7
 beautifulsoup4==4.12.3
-lxml==4.5.0
+lxml
 openai==1.68.2
 sentencepiece==0.2.0
 langchain-openai==0.3.9

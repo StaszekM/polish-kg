@@ -163,8 +163,8 @@ stages:
       size: 1474
     - path: src/polish_kg_langchain/nodes/extract_triple_bielik.py
       hash: md5
-      md5: 704849febe4e2d28d16a4010affc1219
-      size: 221
+      md5: 4d33afaa88d46d7e02cb07c4fe4de560
+      size: 891
     - path: src/polish_kg_langchain/nodes/noop.py
       hash: md5
       md5: 8dd763439a222c4655382673f7c16b9c
@@ -191,20 +191,20 @@ stages:
       size: 18
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 7ab8c1e337840bf288733f9d572a6fb0
-      size: 1027
+      md5: 4c207d02ad85cfc781b3ce4c5fe0a0d6
+      size: 839
     - path: data/edc_baseline/graph_states.pkl
       hash: md5
-      md5: 09e57a8bc5fbdfdeaa912787c5056e29
-      size: 3183
+      md5: 933f897a2295ec80385ae4db43afce6e
+      size: 2926
     - path: notebooks/extract_relations/langgraph_extract_relations_output.ipynb
       hash: md5
-      md5: 14e1b48b5237ac1d12ae8f31b8378a78
-      size: 116842
+      md5: 681ac6bd2c9a8d814206b7e6ee329a60
+      size: 108062
     - path: notebooks/extract_relations/local_papermill_logs.txt
       hash: md5
-      md5: 1bfb53f4dc4f2c019967a4fb9e7e697e
-      size: 3823
+      md5: 804b3234145ab6c0df5e2dada0e6b9a1
+      size: 3635
   prepare_for_evaluation:
     cmd: python -m src.evaluation.parsing --extracted_relations_json data/edc_baseline/extracted_relations.json
       --output_refs_xml data/edc_baseline/refs.xml --output_cands_xml data/edc_baseline/cands.xml
@@ -212,8 +212,8 @@ stages:
     deps:
     - path: data/edc_baseline/extracted_relations.json
       hash: md5
-      md5: 7ab8c1e337840bf288733f9d572a6fb0
-      size: 1027
+      md5: 4c207d02ad85cfc781b3ce4c5fe0a0d6
+      size: 839
     - path: data/edc_baseline/reference.txt
       hash: md5
       md5: 9a05285d8aff08248e8565d82842ae06
@@ -232,8 +232,8 @@ stages:
     outs:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 66856ca5ba3ecb5a7b21075fd87b5ac8
-      size: 2625
+      md5: 5a7739a6c15c6ddb3e8ec1daa2ca04ba
+      size: 2601
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: 49d3ad40f8ed9ed64df3a02056c5ad8f
@@ -244,8 +244,8 @@ stages:
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 66856ca5ba3ecb5a7b21075fd87b5ac8
-      size: 2625
+      md5: 5a7739a6c15c6ddb3e8ec1daa2ca04ba
+      size: 2601
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: 49d3ad40f8ed9ed64df3a02056c5ad8f
@@ -257,28 +257,28 @@ stages:
     outs:
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 2700d797bec1c9228c9194b18f924b13
-      size: 3140
+      md5: 48fd3f94a5911fde89086e11337add7e
+      size: 3117
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 8c626396dcad2f80a77f99c075d3a4d8
-      size: 38539
+      md5: 2de719a7eeb12ca1b12609c5d3382708
+      size: 38193
   generate_report:
-    cmd: papermill --parameters model_name CYFRAGOVPL/Llama-PLLuM-8B-instruct notebooks/reports/report_vanilla_relation_extraction.ipynb
+    cmd: papermill --parameters model_name PLLUMGraph notebooks/reports/report_vanilla_relation_extraction.ipynb
       notebooks/reports/report_vanilla_relation_extraction_output.ipynb
     deps:
     - path: data/edc_baseline/cands.xml
       hash: md5
-      md5: 66856ca5ba3ecb5a7b21075fd87b5ac8
-      size: 2625
+      md5: 5a7739a6c15c6ddb3e8ec1daa2ca04ba
+      size: 2601
     - path: data/edc_baseline/evaluation_results.json
       hash: md5
-      md5: 2700d797bec1c9228c9194b18f924b13
-      size: 3140
+      md5: 48fd3f94a5911fde89086e11337add7e
+      size: 3117
     - path: data/edc_baseline/evaluation_results_per_line.json
       hash: md5
-      md5: 8c626396dcad2f80a77f99c075d3a4d8
-      size: 38539
+      md5: 2de719a7eeb12ca1b12609c5d3382708
+      size: 38193
     - path: data/edc_baseline/refs.xml
       hash: md5
       md5: 49d3ad40f8ed9ed64df3a02056c5ad8f
@@ -289,21 +289,21 @@ stages:
       size: 76050
     params:
       pipelines/edc_baseline/params.yaml:
-        llm: CYFRAGOVPL/Llama-PLLuM-8B-instruct
+        llm: PLLUMGraph
     outs:
     - path: data/edc_baseline/metrics.json
       hash: md5
-      md5: 3cf04a38c56e468c05499c0ab8735987
-      size: 259
+      md5: 49e5231745c6638ef4aed735ca22bbff
+      size: 230
     - path: data/edc_baseline/report_total_f1.png
       hash: md5
-      md5: d4f60df0e359c45a1610f3e2bf33c46f
-      size: 22333
+      md5: 763bfcb95a6a695a5b415423be25186f
+      size: 19345
     - path: data/edc_baseline/report_total_found.png
       hash: md5
-      md5: 5e0203630dd1b42c7a96730075394ee3
-      size: 30127
+      md5: 5373771c6c494c62ae1b951d056e2e7b
+      size: 25338
     - path: notebooks/reports/report_vanilla_relation_extraction_output.ipynb
       hash: md5
-      md5: 6c5f3d22c64acce475c903b4bb5f26b1
-      size: 108734
+      md5: a2851f67bcb737ec8b6d0449433f03d3
+      size: 97818
