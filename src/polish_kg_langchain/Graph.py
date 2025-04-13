@@ -1,7 +1,4 @@
-from typing import Literal
-
 from langgraph.graph import END, START, StateGraph
-from langgraph.types import Command
 
 from polish_kg_langchain import ConfigSchema, State
 from polish_kg_langchain.nodes import (
@@ -9,21 +6,9 @@ from polish_kg_langchain.nodes import (
     create_node_extract_triple,
     create_node_validate_did_format_correctly,
     create_node_validate_did_refuse_to_answer,
+    extract_triple_bielik,
+    noop,
 )
-
-
-def to_evaluation(state: State) -> None:
-    print("To evaluation: ", state)
-    return None
-
-
-def extract_triple_bielik(state: State) -> None:
-    print("Extract triple bielik: ", state)
-    return None
-
-
-def noop(state: State) -> Command[Literal["correct_triple"]]:
-    return Command(goto="correct_triple")
 
 
 class PolishKGLangchainGraph:
