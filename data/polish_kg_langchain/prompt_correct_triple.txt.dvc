@@ -1,0 +1,5 @@
+outs:
+- md5: 712d85241a2913b5df6cce4a6c3b8181
+  size: 978
+  hash: md5
+  path: prompt_correct_triple.txt

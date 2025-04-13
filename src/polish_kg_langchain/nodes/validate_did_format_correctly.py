@@ -5,6 +5,7 @@ from git import Optional
 from langchain_core.prompt_values import ChatPromptValue
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_huggingface import ChatHuggingFace
+from langgraph.graph import END
 from langgraph.types import Command
 
 from polish_kg_langchain import PolishKGRunnableConfig, State
@@ -15,10 +16,11 @@ from utils.validate_interpolation import validate_interpolation
 def create_node_validate_did_format_correctly(
     prompt_location: str,
 ) -> Callable[..., Command]:
+
     def validate_did_format_correctly(
         state: State,
         config: Optional[PolishKGRunnableConfig] = None,
-    ) -> Command[Literal["to_evaluation", "correct_triple"]]:
+    ) -> Command[Literal[END, "correct_triple"]]:  # type: ignore
         if config is None:
             raise ValueError("Config must be provided")
 
@@ -33,7 +35,7 @@ def create_node_validate_did_format_correctly(
 
         prompt: ChatPromptValue = template.invoke(invocation)  # type:ignore
 
-        chat: ChatHuggingFace = config["configurable"].get("base_llm_zero_temp")
+        chat: ChatHuggingFace = config["configurable"].get("base_llm")
         result = chat.invoke(prompt)
         result_cleaned = str(result.content)
 
@@ -41,7 +43,7 @@ def create_node_validate_did_format_correctly(
         goto: str
         if result_cleaned.lower().startswith("tak"):
             has_correct_format = True
-            goto = "to_evaluation"
+            goto = END
         elif result_cleaned.lower().startswith("nie"):
             has_correct_format = False
             goto = "correct_triple"
