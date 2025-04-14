@@ -4,9 +4,9 @@ from polish_kg_langchain import ConfigSchema, State
 from polish_kg_langchain.nodes import (
     create_node_correct_triple,
     create_node_extract_triple,
+    create_node_extract_triple_bielik,
     create_node_validate_did_format_correctly,
     create_node_validate_did_refuse_to_answer,
-    extract_triple_bielik,
     noop,
 )
 
@@ -45,7 +45,12 @@ class PolishKGLangchainGraph:
                 prompt_location="data/polish_kg_langchain/prompt_correct_triple.txt"
             ),
         )
-        graph_builder.add_node("extract_triple_bielik", extract_triple_bielik)
+        graph_builder.add_node(
+            "extract_triple_bielik",
+            create_node_extract_triple_bielik(
+                "data/polish_kg_langchain/prompt_extract_triple.txt"
+            ),
+        )
 
         graph_builder.add_edge("correct_triple", END)
         graph_builder.add_edge("extract_triple_bielik", END)

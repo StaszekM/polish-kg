@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 
-def parse_prompt_file(file_path: str) -> List[Tuple[str, str]]:
+def parse_prompt_file(file_path: str, format_kwargs=None) -> List[Tuple[str, str]]:
     with open(file_path, "r") as f:
         content = f.read()
 
@@ -15,6 +15,9 @@ def parse_prompt_file(file_path: str) -> List[Tuple[str, str]]:
             else:
                 header = lines[0]
                 body = ""
+
+            if format_kwargs:
+                body = body.format(**format_kwargs)
             parsed_segments.append((header, body))
 
         return parsed_segments
