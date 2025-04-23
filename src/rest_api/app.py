@@ -17,7 +17,7 @@ from polish_kg_langchain import InstructionStripper
 
 # === Config ===
 API_TOKEN = os.environ.get("API_TOKEN")  # Set securely in env
-MODEL_NAME = "CYFRAGOVPL/Llama-PLLuM-8B-instruct"  # Replace with your actual model
+MODEL_NAME = "speakleash/Bielik-11B-v2.2-Instruct"  # Replace with your actual model
 
 
 # === Auth Decorator ===

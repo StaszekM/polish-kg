@@ -1,0 +1,6 @@
+.dvc
+data
+env
+.env
+wandb
+test*.ipynb

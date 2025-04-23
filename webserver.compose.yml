@@ -1,13 +1,9 @@
 services:
   python:
     tty: true
-    image: staszekm/polish-kg-python:0.5
-    volumes:
-      - .:/app:rw
+    image: staszekm/polish-kg-python:0.5-webserver
     env_file:
       - .env
-    user: root
-    entrypoint: ["/app/docker-entrypoint.sh"]
     # uncomment the following lines to enable GPU support
     deploy:
       resources:
