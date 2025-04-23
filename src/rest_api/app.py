@@ -53,8 +53,9 @@ def create_chat_huggingface(llm, tokenizer, **kwargs) -> ChatHuggingFace:
 
 
 # === Model Load ===
-print("Loading model...")
+print("Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+print("Tokenizer loaded. Loading model...")
 model = AutoModelForCausalLM.from_pretrained(
     MODEL_NAME, torch_dtype=torch.float16
 ).cuda()

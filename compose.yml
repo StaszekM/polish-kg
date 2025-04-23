@@ -1,5 +1,6 @@
 services:
   python:
+    tty: true
     image: polish-kg-python:0.2
     build:
       context: .
@@ -7,6 +8,9 @@ services:
         USER_ID: ${USER_ID}
     volumes:
       - .:/app:rw
+    env_file:
+      - .env
+    entrypoint: ["/app/docker-entrypoint-webserver.sh"]
     # uncomment the following lines to enable GPU support
     deploy:
       resources:
