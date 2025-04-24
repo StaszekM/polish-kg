@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     python3-lxml \
     libxml2-dev \
     libxslt-dev \
-    git \ 
+    git \
     gosu
 
 WORKDIR /app

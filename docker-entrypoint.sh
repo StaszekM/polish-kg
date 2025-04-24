@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+echo ">>> ENTRYPOINT running as $(whoami) (UID: $(id -u))"
 # 1) Runtime-configurable UID/username
 USER_ID=${USER_ID:-1000}
 USER_NAME=${USER_NAME:-appuser}
