@@ -2,7 +2,7 @@ from os import chdir, getenv
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 
 def make_paths_relative_to_root():

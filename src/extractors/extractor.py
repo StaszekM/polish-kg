@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from transformers import AutoModelForCausalLM, AutoTokenizer, PreTrainedModel
 
-load_dotenv()
+load_dotenv(override=True)
 
 class Extractor(ABC):
     def __init__(self, device=str):

@@ -7,7 +7,7 @@ import torch
 sys.path.append("src")
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 from flask import Flask, jsonify, request
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_huggingface import ChatHuggingFace, HuggingFacePipeline

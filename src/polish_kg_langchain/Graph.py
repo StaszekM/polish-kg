@@ -1,7 +1,7 @@
 from langgraph.graph import END, START, StateGraph
 
-from polish_kg_langchain import ConfigSchema, State
-from polish_kg_langchain.nodes import (
+from .ConfigSchema import ConfigSchema
+from .nodes import (
     create_node_correct_triple,
     create_node_extract_triple,
     create_node_extract_triple_bielik,
@@ -9,6 +9,7 @@ from polish_kg_langchain.nodes import (
     create_node_validate_did_refuse_to_answer,
     noop,
 )
+from .State import State
 
 
 class PolishKGLangchainGraph:

@@ -3,7 +3,7 @@ import os
 from argparse import ArgumentParser
 import dotenv
 
-dotenv.load_dotenv()
+dotenv.load_dotenv(override=True)
 
 translations_location = os.getenv("ENTITY_RELATION_MULTILINGUAL_TRANSLATIONS")
 assert (

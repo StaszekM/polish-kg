@@ -9,7 +9,7 @@ from langchain_core.messages import AIMessage
 from polish_kg_langchain import PolishKGRunnableConfig, State
 from utils.parse_prompt_file import parse_prompt_file
 
-load_dotenv()
+load_dotenv(override=True)
 import os
 
 
